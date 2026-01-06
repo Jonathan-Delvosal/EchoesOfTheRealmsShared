@@ -9,9 +9,9 @@ namespace EchoesOfTheRealms
         public DbSet<Address> Adress { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<Job> Classes { get; set; }
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<User> Customers { get; set; }
         public DbSet<Equipment> Equipments { get; set; }
-        public DbSet<Stuff> Stuffs { get; set; }
+        public DbSet<EquipType> Stuffs { get; set; }
         public DbSet<Inventory> Inventory { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
@@ -20,8 +20,8 @@ namespace EchoesOfTheRealms
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Customer>().HasData([
-                new Customer{ Id = 1, NickName = "Hakuryu", LastName = "Delvosal", FirstName = "Jonathan", Mail = "jonathan.delvosal@outlook.com", IsAdmin = true, IsDeleted = false  }
+            modelBuilder.Entity<User>().HasData([
+                new User{ Id = 1, NickName = "Hakuryu", LastName = "Delvosal", FirstName = "Jonathan", Mail = "jonathan.delvosal@outlook.com", IsAdmin = true, IsDeleted = false  }
                 ]);
 
             modelBuilder.Entity<Address>().HasData([
@@ -69,28 +69,28 @@ namespace EchoesOfTheRealms
                 new Item{ Id = 210000000001, Type = "Potion", Name = "Potion de soin", Description = "Une simple potion de soin.", FlavorText = "Une petite potion qui vous rendra quelques points de vie, afin de tenir jusqu'à la fin du combat.", BuyPrice = 10, SellPrice = 5, IsDeleted = false}
                 ]);
 
-            modelBuilder.Entity<Stuff>().HasData([
-                new Stuff{ Id = 1, Name = "Casque"}
+            modelBuilder.Entity<EquipType>().HasData([
+                new EquipType{ Id = 1, Name = "Casque"}
                 ]);
 
-            modelBuilder.Entity<Stuff>().HasData([
-                new Stuff{ Id = 2, Name = "Armure"}
+            modelBuilder.Entity<EquipType>().HasData([
+                new EquipType{ Id = 2, Name = "Armure"}
                 ]);
 
-            modelBuilder.Entity<Stuff>().HasData([
-                new Stuff{ Id = 3, Name = "Bottes"}
+            modelBuilder.Entity<EquipType>().HasData([
+                new EquipType{ Id = 3, Name = "Bottes"}
                 ]);
 
-            modelBuilder.Entity<Stuff>().HasData([
-                new Stuff{ Id = 4, Name = "Epée"}
+            modelBuilder.Entity<EquipType>().HasData([
+                new EquipType{ Id = 4, Name = "Epée"}
                 ]);
 
-            modelBuilder.Entity<Stuff>().HasData([
-                new Stuff{ Id = 5, Name = "Arc"}
+            modelBuilder.Entity<EquipType>().HasData([
+                new EquipType{ Id = 5, Name = "Arc"}
                 ]);
 
-            modelBuilder.Entity<Stuff>().HasData([
-                new Stuff{ Id = 6, Name = "Bâton"}
+            modelBuilder.Entity<EquipType>().HasData([
+                new EquipType{ Id = 6, Name = "Bâton"}
                 ]);
 
             //modelBuilder.Entity<ItemTypes>().HasData([

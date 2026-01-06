@@ -1,6 +1,6 @@
 ﻿namespace EchoesOfTheRealms.Entities
 {
-    public class ItemType
+    public class UserRole
     {
         public int Id { get; set; }
 
@@ -8,8 +8,7 @@
 
         #region FK
 
-        public List<Item> Items { get; set; } = null!;
-
+        public List<User> Users { get; set; } = null!;
         #endregion
     }
 }

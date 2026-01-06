@@ -1,7 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace EchoesOfTheRealms.Entities
 {
+
+    [Index("Name", IsUnique = true)]
+
     public class Job
     {
 
@@ -10,31 +14,37 @@ namespace EchoesOfTheRealms.Entities
         
         public string Name { get; set; } = null!;
 
-        public int HP { get; set; }
+        public int BonusHP { get; set; }
 
-        public int Mana { get; set; }
+        public int BonusMana { get; set; }
 
-        public int Str { get; set; }
+        public int BonusStr { get; set; }
 
-        public int Dex { get; set; }
+        public int BonusDex { get; set; }
 
-        public int Intel { get; set; }
+        public int BonusIntel { get; set; }
 
-        public int Level { get; set; }
+        public int BonusLevel { get; set; }
 
-        public int XP { get; set; }
+        public int BonusVita { get; set; }
 
-        public int Vita { get; set; }
+        public int BonusResFire { get; set; }
 
-        public int ResFire { get; set; }
+        public int BonusResIce { get; set; }
 
-        public int ResIce { get; set; }
-
-        public int ResLightning { get; set; }
+        public int BonusResLightning { get; set; }
 
         public string? Symbol { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        #region FK
+
+        public int? CharacterId { get; set; }
+
+        public Character? Character { get; set; } 
+
+        #endregion
 
     }
 }

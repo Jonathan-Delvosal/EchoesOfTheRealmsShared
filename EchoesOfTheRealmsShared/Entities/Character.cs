@@ -1,7 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EchoesOfTheRealmsShared.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace EchoesOfTheRealms.Entities
 {
+
+    [Index("Name", IsUnique = true)]
     public class Character
     {
 
@@ -11,41 +15,61 @@ namespace EchoesOfTheRealms.Entities
         [Required]
         public string Name { get; set; } = null!;
 
+        public int HP { get; set; }
+
+        public int Mana { get; set; }
+
+        public int Str { get; set; }
+
+        public int Dex { get; set; }
+
+        public int Intel { get; set; }
+
+        public int Vita { get; set; }
+
+        public int ResFire { get; set; }
+
+        public int ResIce { get; set; }
+
+        public int ResLightning { get; set; }
+
+        public int LvL { get; set; }
+
+        public int XP { get; set; }
+
+        public int Gold { get; set; }
+
         public string? Sprite { get; set; }
 
         public bool IsDeleted { get; set; }
 
-        #region Doublons DB
-        public long? HelmetID { get; set; }
+        #region FK
+        public int UserId { get; set; }
         
-        public Equipment? Helmet { get; set; }
-
-        public long? ArmorID { get; set; }
-        
-        public Equipment? Armor { get; set; }
-
-        public long? BootID { get; set; }
-        
-        public Equipment? Boot { get; set; }
-
-        public long? WeaponId { get; set; }
-        
-        public Equipment? Weapon { get; set; }
+        public User User { get; set; } = null!;
 
         public int JobId { get; set; }
         
-        public Job Job { get; set; }
+        public Job Job { get; set; } = null!;
 
-        public int CustomerId { get; set; }
+        public List<Quest> Quests { get; set; } = null!;
+
+        public List<Item> Items { get; set; } = null!;
+
+        public List<Equipment> Equipments { get; set; } = null!;
+
+        public Weapon? Weapon { get; set; }
+
+        public Helmet? Helmet { get; set; }
+
+        public Armor? Armor { get; set; }
+
+        public Boot? Boot { get; set; }
+
         
-        public Customer Customer { get; set; } 
-
-        public long InventoryId { get; set; }
-
-        public Inventory Inventory { get; set; } 
         #endregion
 
-      
+
 
 
     }

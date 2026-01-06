@@ -12,7 +12,7 @@ namespace EchoesOfTheRealms.Entities
 
         public int Number { get; set; }
 
-        public int NumberComp { get; set; }
+        public int NumberBox { get; set; }
 
         public string City { get; set; }
 
@@ -21,10 +21,11 @@ namespace EchoesOfTheRealms.Entities
         [Required]
         public string Country { get; set; }
 
-        #region Doublons DB
-        public Customer Customer { get; set; } = null!;
-
+        #region FK 
         public int CustomerId { get; set; }
+        
+        public User Customer { get; set; } = null!;
+
 
         #endregion
 

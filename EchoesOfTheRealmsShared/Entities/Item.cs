@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EchoesOfTheRealmsShared.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace EchoesOfTheRealms.Entities
 {
@@ -7,8 +8,6 @@ namespace EchoesOfTheRealms.Entities
 
         [Key]
         public long Id { get; set; }
-
-        public string Type { get; set; } = null!;
 
         public string Name { get; set; } = null!;
 
@@ -25,5 +24,19 @@ namespace EchoesOfTheRealms.Entities
         public string? Sprite { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        #region FK
+
+        public List<Quest> Quest { get; set; } = null!;
+
+        public List<Character> Characters { get; set; } = null!;
+
+        public List<Monster> Monsters { get; set; } = null!;
+
+        public int ItemTypeId { get; set; }
+
+        public ItemType ItemType { get; set; } = null!;
+
+        #endregion
     }
 }

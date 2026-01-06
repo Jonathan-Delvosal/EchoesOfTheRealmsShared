@@ -5,7 +5,7 @@ namespace EchoesOfTheRealms.Entities
 {
     [Index("Mail", "NickName", IsUnique = true)]
     [Index("NickName", IsUnique = true)]
-    public class Customer
+    public class User
     {
 
         [Key]
@@ -24,11 +24,21 @@ namespace EchoesOfTheRealms.Entities
 
         public string Mail { get; set; } = null!;
 
-        public bool IsAdmin { get; set; }
+        public string Note { get; set; } = null!;
+
+        public bool IsBanned { get; set; }
 
         public bool IsDeleted { get; set; }
 
-        public Address Address { get; set; } = null!;
+        #region FK
+        public Address? Address { get; set; } = null!;
+
+        public List<UserRole> UserRoles { get; set; } = null!;
+
+        public List<Character> Characters { get; set; } = null!;
+
+        #endregion
+
 
 
     }

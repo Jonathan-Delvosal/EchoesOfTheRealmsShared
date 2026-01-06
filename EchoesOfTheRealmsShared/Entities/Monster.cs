@@ -8,8 +8,6 @@ namespace EchoesOfTheRealms.Entities
         [Key]
         public long Id { get; set; }
 
-        public string Type { get; set; } = null!;
-
         public string Name { get; set; } = null!;
 
         public int HP { get; set; }
@@ -24,8 +22,6 @@ namespace EchoesOfTheRealms.Entities
 
         public int Level { get; set; }
 
-        public int XP { get; set; }
-
         public int Vita { get; set; }
 
         public int ResFire { get; set; }
@@ -37,8 +33,20 @@ namespace EchoesOfTheRealms.Entities
         public string? Sprite { get; set; }
 
         public bool IsDeleted { get; set; }
+        
+        public int XPGiven { get; set; }
 
-        public int Gold { get; set; }
+        public int GoldGiven { get; set; }
+
+        #region FK
+        public int MonsterTypeId { get; set; }
+        public MonsterType MonsterType { get; set; } = null!;
+
+        public List<Item> Items { get; set; } = null!;
+
+        public List<Equipment> Equipment { get; set; } = null!;
+
+        #endregion
 
     }
 }
