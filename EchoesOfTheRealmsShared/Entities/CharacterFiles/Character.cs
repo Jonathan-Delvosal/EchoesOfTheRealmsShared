@@ -1,8 +1,11 @@
-﻿using EchoesOfTheRealmsShared.Entities;
+﻿using EchoesOfTheRealmsShared.Entities.EquipmentFiles;
+using EchoesOfTheRealmsShared.Entities.ItemFiles;
+using EchoesOfTheRealmsShared.Entities.QuestFiles;
+using EchoesOfTheRealmsShared.Entities.UserFiles;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace EchoesOfTheRealms.Entities
+namespace EchoesOfTheRealmsShared.Entities.CharacterFiles
 {
 
     [Index("Name", IsUnique = true)]

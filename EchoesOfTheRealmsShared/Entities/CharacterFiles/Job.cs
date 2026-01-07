@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace EchoesOfTheRealms.Entities
+namespace EchoesOfTheRealmsShared.Entities.CharacterFiles
 {
 
     [Index("Name", IsUnique = true)]

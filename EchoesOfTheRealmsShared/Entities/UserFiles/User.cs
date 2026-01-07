@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EchoesOfTheRealmsShared.Entities.CharacterFiles;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace EchoesOfTheRealms.Entities
+namespace EchoesOfTheRealmsShared.Entities.UserFiles
 {
     [Index("Mail", "NickName", IsUnique = true)]
     [Index("NickName", IsUnique = true)]

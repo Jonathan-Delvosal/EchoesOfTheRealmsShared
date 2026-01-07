@@ -1,6 +1,11 @@
-﻿namespace EchoesOfTheRealms.Entities
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace EchoesOfTheRealmsShared.Entities.EquipmentFiles
 {
-    public class EquipType
+
+    [Index("Name", IsUnique = true)]
+
+    public class MaterialType
     {
 
         public int Id { get; set; }

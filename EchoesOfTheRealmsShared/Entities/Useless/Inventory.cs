@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EchoesOfTheRealms.Entities
+namespace EchoesOfTheRealmsShared.Entities.Useless
 {
     public class Inventory
     {

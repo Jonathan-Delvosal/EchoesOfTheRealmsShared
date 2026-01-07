@@ -1,7 +1,9 @@
-﻿using EchoesOfTheRealmsShared.Entities;
+﻿using EchoesOfTheRealmsShared.Entities.CharacterFiles;
+using EchoesOfTheRealmsShared.Entities.MonsterFiles;
+using EchoesOfTheRealmsShared.Entities.QuestFiles;
 using System.ComponentModel.DataAnnotations;
 
-namespace EchoesOfTheRealms.Entities
+namespace EchoesOfTheRealmsShared.Entities.EquipmentFiles
 {
     public class Equipment
     {

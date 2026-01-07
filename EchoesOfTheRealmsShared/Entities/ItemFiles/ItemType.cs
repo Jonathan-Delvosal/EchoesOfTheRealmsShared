@@ -1,4 +1,4 @@
-﻿namespace EchoesOfTheRealms.Entities
+﻿namespace EchoesOfTheRealmsShared.Entities.ItemFiles
 {
     public class ItemType
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace EchoesOfTheRealms.Entities
+namespace EchoesOfTheRealmsShared.Entities.MonsterFiles
 {
 
     [Index("Name", IsUnique = true)]
@@ -12,6 +12,12 @@ namespace EchoesOfTheRealms.Entities
 
         public string Name { get; set; } = null!;
 
+        #region FK
+
         public List<Monster> Monsters { get; set; } = null!;
+
+
+        #endregion
+
     }
 }

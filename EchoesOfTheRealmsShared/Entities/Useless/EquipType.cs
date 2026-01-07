@@ -1,11 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace EchoesOfTheRealms.Entities
+﻿namespace EchoesOfTheRealmsShared.Entities.Useless
 {
-
-    [Index("Name", IsUnique = true)]
-
-    public class MaterialType
+    public class EquipType
     {
 
         public int Id { get; set; }

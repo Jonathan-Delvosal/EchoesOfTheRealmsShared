@@ -1,5 +1,5 @@
 ﻿using EchoesOfTheRealms;
-using EchoesOfTheRealms.Entities;
+using EchoesOfTheRealmsShared.Entities.MonsterFiles;
 using EchoesOfTheRealmsShared.Queries;
 
 namespace EchoesOfTheRealmsShared.Services

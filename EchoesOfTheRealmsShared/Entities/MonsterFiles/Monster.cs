@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EchoesOfTheRealmsShared.Entities.EquipmentFiles;
+using EchoesOfTheRealmsShared.Entities.ItemFiles;
+using System.ComponentModel.DataAnnotations;
 
-namespace EchoesOfTheRealms.Entities
+namespace EchoesOfTheRealmsShared.Entities.MonsterFiles
 {
     public class Monster
     {

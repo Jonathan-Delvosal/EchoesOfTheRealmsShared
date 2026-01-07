@@ -1,12 +1,11 @@
-﻿using EchoesOfTheRealms.Entities;
-using System;
-using System.Collections.Generic;
+﻿using EchoesOfTheRealmsShared.Entities.CharacterFiles;
+using EchoesOfTheRealmsShared.Entities.EquipmentFiles;
+using EchoesOfTheRealmsShared.Entities.ItemFiles;
+using EchoesOfTheRealmsShared.Entities.NPCFiles;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EchoesOfTheRealmsShared.Entities
+
+namespace EchoesOfTheRealmsShared.Entities.QuestFiles
 {
     public class Quest
     {
