@@ -52,7 +52,7 @@ namespace EchoesOfTheRealmsShared.Entities.EquipmentFiles
 
         //public List<EquipType> Types { get; set; } = null!;
 
-        public string Materials { get; set; } = null!;
+        public int Materials { get; set; }
 
         public List<MaterialType> MaterialTypes { get; set; } = null!;
 

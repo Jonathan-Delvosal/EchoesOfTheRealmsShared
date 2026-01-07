@@ -14,9 +14,15 @@ namespace EchoesOfTheRealmsShared.Entities.NPCFiles
 
         public string FirstName { get; set; } = null!;
 
+        public string Identity { get; set; } = null!;
+
         public string Personnality { get; set; } = null!;
 
         public string Knownledge { get; set; } = null!;
+
+        public string Behavior { get; set; } = null!;
+
+        public string Limit { get; set; } = null!;
 
         public string Resume { get; set; } = null!;
 
