@@ -42,6 +42,22 @@ namespace EchoesOfTheRealms
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Character>().HasData([
+                new Character { 
+                    Id = 1, 
+                    Name = "Haku", 
+                    IsDeleted = false, 
+                    CustomerId = 1, 
+                    JobId = 1, 
+                    HelmetID = 150000000001, 
+                    ArmorID = 160000000001, 
+                    BootID = 170000000001, 
+                    WeaponId = 110000000001, 
+                    InventoryId = 1
+                }
+                ]);
+
             //modelBuilder.Entity<User>().HasData([
             //    new User{ Id = 1, NickName = "Hakuryu", LastName = "Delvosal", FirstName = "Jonathan", Mail = "jonathan.delvosal@outlook.com", IsAdmin = true, IsDeleted = false  }
             //    ]);
@@ -79,9 +95,7 @@ namespace EchoesOfTheRealms
             //    new Inventory { Id = 1, Gold = 0}
             //    ]);
 
-            //modelBuilder.Entity<Character>().HasData([
-            //    new Character { Id = 1, Name = "Haku", IsDeleted = false, CustomerId = 1, JobId = 1, HelmetID = 150000000001, ArmorID = 160000000001, BootID = 170000000001, WeaponId = 110000000001, InventoryId = 1}
-            //    ]);
+
 
             //modelBuilder.Entity<Monster>().HasData([
             //    new Monster{ Id = 1, Type = "Loup", Name = "Loup des steppes", HP = 30, Mana = 1, Level = 1, Str = 10, Dex = 40, Intel = 25, Vita = 30, ResFire = 5, ResIce = 20, ResLightning = 5, XP = 25, Gold = 10, IsDeleted = false}
