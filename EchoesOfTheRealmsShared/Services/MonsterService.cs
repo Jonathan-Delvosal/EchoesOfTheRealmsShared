@@ -9,10 +9,11 @@ namespace EchoesOfTheRealmsShared.Services
 
         public List<Monster> Get(MonsterQuery queryM)
         {
+
             IQueryable<Monster> query = _db.Monsters.Where(m => !m.IsDeleted);
             if (queryM.type != null)
             {
-                query = query.Where(m => m.Type == queryM.type);
+                query = query.Where(m => m.MonsterType.Name == queryM.type);
             }
 
             if (queryM.hpMin != null)
@@ -117,22 +118,22 @@ namespace EchoesOfTheRealmsShared.Services
 
             if (queryM.xpMin != null)
             {
-                query = query.Where(m => m.XP >= queryM.xpMin);
+                query = query.Where(m => m.XPGiven >= queryM.xpMin);
             }
 
             if (queryM.xpMax != null)
             {
-                query = query.Where(m => m.XP <= queryM.xpMax);
+                query = query.Where(m => m.XPGiven <= queryM.xpMax);
             }
 
             if (queryM.goldMin != null)
             {
-                query = query.Where(m => m.Gold >= queryM.goldMin);
+                query = query.Where(m => m.GoldGiven >= queryM.goldMin);
             }
 
             if (queryM.goldMax != null)
             {
-                query = query.Where(m => m.Gold <= queryM.goldMax);
+                query = query.Where(m => m.GoldGiven <= queryM.goldMax);
             }
 
             return query.ToList();

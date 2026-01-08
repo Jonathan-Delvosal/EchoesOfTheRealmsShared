@@ -29,12 +29,6 @@ namespace EotR.App.Utils
 
             return Hash(password, salt) == encodedPassword;
         }
-
-
-
-
-
-
-
+        
     }
 }

@@ -16,6 +16,7 @@ namespace EchoesOfTheRealmsShared.Entities.QuestFiles
         [Required]
         public string Name { get; set; } = null!;
 
+        [Required]
         public string Description { get; set; } = null!;
 
         public bool Success { get; set; }
@@ -24,8 +25,10 @@ namespace EchoesOfTheRealmsShared.Entities.QuestFiles
 
         public int LvlPrerequisites { get; set; }
 
+        [Required]
         public int XPGiven { get; set; }
 
+        [Required]
         public int GoldGiven { get; set; }
 
         public bool IsDeleted { get; set; }
@@ -33,9 +36,9 @@ namespace EchoesOfTheRealmsShared.Entities.QuestFiles
         #region FK
 
         // FK id npc en cas de 1/1
-        public int NpcId { get; set; }
+        public long NpcId { get; set; } // la valeur etait en int
 
-        public NPC Npc { get; set; } = null!;
+        public NPC Npc { get; set; } 
 
         // en cas de 0/n ou 1/n
         public List<Character> Characters { get; set; } = null!;

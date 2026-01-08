@@ -11,8 +11,12 @@ namespace EchoesOfTheRealmsShared.Entities.EquipmentFiles
         [Key]
         public long Id { get; set; }
 
+        public long IdCustom { get; set; }
+
+        [Required]
         public string Name { get; set; } = null!;
 
+        [Required]
         public string? Description { get; set; }
 
         public string? FlavorText { get; set; }
@@ -29,8 +33,10 @@ namespace EchoesOfTheRealmsShared.Entities.EquipmentFiles
 
         public int? ModLVL { get; set; }
 
+        [Required]
         public int BuyPrice { get; set; }
 
+        [Required]
         public int SellPrice { get; set; }
 
         public int? ModVita { get; set; }
@@ -48,17 +54,20 @@ namespace EchoesOfTheRealmsShared.Entities.EquipmentFiles
         public bool IsDeleted { get; set; }
 
         #region FK
-        //public string? Type { get; set; } = null!;
+        [Required]
+        public int Type { get; set; }
 
-        //public List<EquipType> Types { get; set; } = null!;
+        public List<EquipType> Types { get; set; } = null!;
 
+        [Required]
         public int Materials { get; set; }
 
         public List<MaterialType> MaterialTypes { get; set; } = null!;
 
+
         public List<Quest> Quest { get; set; } = null!;
 
-        public List<Character> Characters { get; set; } = null!;
+        public List<Character> Characters { get; set; }
 
         public List<Monster> Monster { get; set; } = null!;
         #endregion

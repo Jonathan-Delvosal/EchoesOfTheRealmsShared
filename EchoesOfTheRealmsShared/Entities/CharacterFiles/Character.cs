@@ -55,21 +55,25 @@ namespace EchoesOfTheRealmsShared.Entities.CharacterFiles
         
         public Job Job { get; set; } = null!;
 
-        public List<Quest> Quests { get; set; } = null!;
+        public List<Quest> Quests { get; set; }
 
-        public List<Item> Items { get; set; } = null!;
+        public List<Item> Items { get; set; }
 
-        public List<Equipment> Equipments { get; set; } = null!;
+        public List<Equipment> Equipments { get; set; }
 
-        public Weapon? Weapon { get; set; }
+        //public Weapon? Weapon { get; set; }
+        //public long? WeaponId { get; set; }
 
-        public Helmet? Helmet { get; set; }
+        //public Helmet? Helmet { get; set; }
+        //public long? HelmetId { get; set; }
 
-        public Armor? Armor { get; set; }
+        //public Armor? Armor { get; set; }
+        //public long? ArmorId { get; set; }
 
-        public Boot? Boot { get; set; }
+        //public Boot? Boot { get; set; }
+        //public long? BootId { get; set; }
 
-        
+
         #endregion
 
 

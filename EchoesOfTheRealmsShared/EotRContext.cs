@@ -17,11 +17,12 @@ namespace EchoesOfTheRealms
         public DbSet<Job> Jobs { get; set; }
 
         public DbSet<Equipment> Equipments { get; set; }
+        public DbSet<Weapon> Weapons { get; set; }
+        public DbSet<Helmet> Helmets { get; set; }
         public DbSet<Armor> Armors { get; set; }
         public DbSet<Boot> Boots { get; set; }
-        public DbSet<Helmet> Helmets { get; set; }
         public DbSet<MaterialType> MaterialTypes { get; set; }
-        public DbSet<Weapon> Weapons { get; set; }
+        public DbSet<EquipType> EquipTypes { get; set; }
 
 
         public DbSet<Item> Items { get; set; }
@@ -139,6 +140,32 @@ namespace EchoesOfTheRealms
                     }
             ]);
 
+            modelBuilder.Entity<EquipType>().HasData([
+                new EquipType
+                    {
+                        Id = 1,
+                        Name = "Armes",
+                    },
+
+                new EquipType
+                    {
+                        Id = 2,
+                        Name = "Casque",
+                    },
+
+                new EquipType
+                    {
+                        Id = 3,
+                        Name = "Armure",
+                    },
+
+                new EquipType
+                    {
+                        Id = 4,
+                        Name = "Bottes",
+                    }
+            ]);
+
 
             //113000000001
             //    1 pour l'équpement
@@ -148,20 +175,21 @@ namespace EchoesOfTheRealms
             //      3 pour les armors
             //      4 pour les boots
             //    3 pour le type de matériel (ici fer) à définir en fonction de la table MaterialType
-            //    000000001 pour l'ID unique de l'équipement
+            //    000000001 pour l'ID unique de l'équipement (9 chiffres au total)
             modelBuilder.Entity<Weapon>().HasData([
                 new Weapon
                     {
-                        Id = (1)(1)(3)(00000000)1,
+                        Id = 1,
+                        Type = 1,
+                        Materials = 3,
+                        IdCustom = 113000000001,
                         Name = "Epée en fer",
                         Description = "Une épée basique en fer.",
                         FlavorText = "Une épée parfaite pour les débutants.",
-                        Materials = 3,
                         ModStr = 15,
                         BuyPrice = 50,
                         SellPrice = 25,
                         IsDeleted = false
-
                     }
             ]);
 
@@ -185,25 +213,27 @@ namespace EchoesOfTheRealms
                     }
             ]);
 
-            //113000000001
+            //21000000001
             //    2 pour l'objet
             //    1 pour le type d'objet (ici potion)
             //      1 voir table ItemType
             //    X pour le sous-type d'objet (à définir plus tard si nécessaire)
-            //    000000001 pour l'ID unique de l'équipement
+            //    000000001 pour l'ID unique de l'équipement (9 chiffres au totalà
 
             modelBuilder.Entity<Item>().HasData([
                 new Item
-                { 
-                    Id = (2)(1)(X)000000001, 
-                    ItemTypeId = 1,
-                    Name = "Potion de soin", 
-                    Description = "Une simple potion de soin.", 
-                    FlavorText = "Une petite potion qui vous rendra quelques points de vie, afin de tenir jusqu'à la fin du combat.", 
-                    Effect = "Rend 50 HP", //a remplacer par un effet fonctionnelle
-                    BuyPrice = 10, 
-                    SellPrice = 5, 
-                    IsDeleted = false}
+                    { 
+                        Id = 1,
+                        ItemTypeId = 1,
+                        IdCustom = 21000000001,
+                        Name = "Potion de soin", 
+                        Description = "Une simple potion de soin.", 
+                        FlavorText = "Une petite potion qui vous rendra quelques points de vie, afin de tenir jusqu'à la fin du combat.", 
+                        Effect = "Rend 50 HP", //a remplacer par un effet fonctionnelle
+                        BuyPrice = 10, 
+                        SellPrice = 5, 
+                        IsDeleted = false
+                    }
                 ]);
 
 
@@ -231,8 +261,8 @@ namespace EchoesOfTheRealms
                 new Monster
                 { 
                     Id = 1, 
-                    Name = "Loup des steppes", 
                     MonsterTypeId = 1,
+                    Name = "Loup des steppes", 
                     HP = 30, 
                     Mana = 1, 
                     Level = 1, 
@@ -254,7 +284,7 @@ namespace EchoesOfTheRealms
                     Id = 1,
                     LastName = "Mancyan",
                     FirstName = "Arcon",
-                    Identity = $"Ton prénom est Arcon et ton nom de famille est Mancyan. Tu es un marchand établi dans la ville de Libra, personnage non-joueur de l’univers Pyrékrim. Tu existes uniquement dans cet univers fictif.",
+                    Identity = "Ton prénom est Arcon et ton nom de famille est Mancyan. Tu es un marchand établi dans la ville de Libra, personnage non-joueur de l’univers Pyrékrim. Tu existes uniquement dans cet univers fictif.",
                     Personnality = "Tu es un marchand bourru, vieux célibataire depuis la mort de ta femme, sans enfant. Tu es souvent en colère, même si ta boutique fonctionne bien. Tu t’entends correctement avec tes fournisseurs. Ton caractère influence directement tes réponses.",
                     Knownledge = "Tu connais uniquement ce qui est cohérent avec ton rôle et ton vécu. Tu ignores toute information extérieure à l’univers Pyrékrim. Tu ne connais pas le futur, seulement ton passé et le présent.",
                     Behavior = "Tu ne récites jamais ton pédigré complet. Tu ne donnes que les informations utiles. Tu parles et agis comme une personne réelle de cet univers. Tu ne donnes jamais de réponses méta. Tu peux mentir, te tromper ou refuser de répondre si cela correspond à ton caractère. Tu réagis émotionnellement selon la situation.",
@@ -262,61 +292,81 @@ namespace EchoesOfTheRealms
                     Resume = "",
                     StyleLangage = "Tu réponds uniquement en français. Ton langage est bourru, parfois insultant. Tu n’aimes pas les échanges inutiles ou futiles. Tes réponses sont courtes à moyennes. Tu n’utilises jamais de listes ni de markdown.",
                     Gold = 500,
-                    IsDeleted = false}
+                    NpcRoleId = 1,
+                    IsDeleted = false,
+                    //Quest = null
+                }
+                ]);
+
+            modelBuilder.Entity<NPCRole>().HasData([
+                new NPCRole
+                {
+                    Id = 1,
+                    Name = "Marchand"
+                }
+                
                 ]);
 
             modelBuilder.Entity<UserRole>().HasData([
-                new UserRole{ Id = 1, Name = "Admin" },
-                new UserRole{ Id = 2, Name = "User" },
-                new UserRole{ Id = 3, Name = "Moderator" },
+                new UserRole
+                { 
+                    Id = 1, 
+                    Name = "Admin" 
+                },
+                new UserRole
+                { 
+                    Id = 2, 
+                    Name = "User" 
+                },
+                new UserRole
+                { 
+                    Id = 3, 
+                    Name = "Moderator" 
+                },
 
                 ]);
 
 
-            //modelBuilder.Entity<User>().HasData([
-            //    new User{ Id = 1, NickName = "Hakuryu", LastName = "Delvosal", FirstName = "Jonathan", Mail = "jonathan.delvosal@outlook.com", IsAdmin = true, IsDeleted = false  }
-            //    ]);
+            modelBuilder.Entity<User>().HasData([
+                new User
+                    { 
+                        Id = 1, 
+                        NickName = "Hakuryu", 
+                        LastName = "Delvosal", 
+                        FirstName = "Jonathan", 
+                        Mail = "jonathan.delvosal@outlook.com",
+                        Note = "Créateur du jeu",
+                        IsBanned = false,
+                        IsDeleted = false  
+                    }
+                ]);
 
-            //modelBuilder.Entity<Address>().HasData([
-            //    new Address{ Id = 1, Street = "Chaussée de Waterloo", Number = 136, NumberComp = 0011, City = "Namur", PostalCode = 5002, Country = "Belgique", CustomerId = 1}
-            //    ]);
+            modelBuilder.Entity<Address>().HasData([
+                new Address
+                { 
+                    Id = 1, 
+                    Street = "Chaussée de Waterloo", 
+                    Number = 136, 
+                    NumberBox = 0011, 
+                    City = "Namur", 
+                    PostalCode = 5002, 
+                    Country = "Belgique", 
+                    CustomerId = 1}
+                ]);
 
-            //modelBuilder.Entity<Equipment>().HasData([
-
-            //    new Equipment{ Id = 150000000001, Materials = "Cuir", Name = "Casque en cuir", Description = "Un petit casque en cuir.", FlavorText = "Récupéré sur un soldat tombé au combat, il peut encore servir.", ModVita = 10, ModResFire = 5, ModResIce = 5, ModResLightning = 20, BuyPrice = 10, SellPrice = 5, IsDeleted = false},
-
-            //    new Equipment{ Id = 160000000001, Materials = "Tissu", Name = "Armure en tissu", Description = "Une simple toge en fin coton.", FlavorText = "Tissé avec amour par les tisserandes du village pour les fiers guérrier.", ModVita = 20, ModResFire = 5, ModResIce = 20, ModResLightning = 5, BuyPrice = 10, SellPrice = 5, IsDeleted = false},
-
-            //    new Equipment{ Id = 170000000001, Materials = "Metal", Name = "Bottes en métal", Description = "Des bottes de plates légère.", FlavorText = "Impossible d'avoir froid aux pieds lors des expéditions avec de telles bottes.", ModVita = 10, ModResFire = 20, ModResIce = 5, ModResLightning = 5, BuyPrice = 10, SellPrice = 5, IsDeleted = false},
-
-            //    new Equipment{ Id = 110000000001, Materials = "Bronze", Name = "Epée de bronze", Description = "Une simple épée de bronze.", FlavorText = "Une épée de débutant, parfaite pour occire vos premiers monstres.", ModStr = 10, BuyPrice = 10, SellPrice = 5, IsDeleted = false},
-
-            //    new Equipment{ Id = 140000000001, Materials = "Bois", Name = "Bâton d'apprenti Mage", Description = "Un bâton de bois infusé de magie.", FlavorText = "Taillé dans un arbre millénaire, ce bâton est offert à chaque nouvel apprenti mage par son mentor.", ModIntel = 10, BuyPrice = 10, SellPrice = 5, IsDeleted = false},
-
-            //    new Equipment{ Id = 130000000001, Materials = "Bois", Name = "Arc en bois", Description = "Un arc en bois courbé.", FlavorText = "Façonné à partir d'une belle branche de noisetier, cet arc vous fera chasser de gros lapin.", ModDex = 10, BuyPrice = 10, SellPrice = 5, IsDeleted = false},
-
-            //    ]);
-
-
-
-
-
-
-
-
-
-
-
-            //modelBuilder.Entity<EquipType>().HasData([
-            //    new EquipType{ Id = 1, Name = "Casque"}
-            //    ]);
-
-            //modelBuilder.Entity<EquipType>().HasData([
-            //    new EquipType{ Id = 2, Name = "Armure"}
-            //    ]);
-
-            //modelBuilder.Entity<EquipType>().HasData([
-            //    new EquipType{ Id = 3, Name = "Bottes"}
+            //modelBuilder.Entity<Quest>().HasData([
+            //    new Quest
+            //        {
+            //            Id = 1,
+            //            Name = "Massacre des Loups",
+            //            Description = "Aller massacrer 10 loups des steppes",
+            //            Success = false,
+            //            Failure = false,
+            //            LvlPrerequisites = 1,
+            //            XPGiven = 300,
+            //            GoldGiven = 500,
+            //            IsDeleted = false
+            //        }
             //    ]);
 
             //modelBuilder.Entity<EquipType>().HasData([
@@ -329,14 +379,6 @@ namespace EchoesOfTheRealms
 
             //modelBuilder.Entity<EquipType>().HasData([
             //    new EquipType{ Id = 6, Name = "Bâton"}
-            //    ]);
-
-            //modelBuilder.Entity<ItemTypes>().HasData([
-            //    new ItemTypes{ Id = 1, Name = "Potion"}
-            //    ]);
-
-            //modelBuilder.Entity<ItemTypes>().HasData([
-            //    new ItemTypes{ Id = 2, Name = "Bombe"}
             //    ]);
 
         }

@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EchoesOfTheRealmsShared.Entities.EquipmentFiles
 {
-
     [Index("Name", IsUnique = true)]
 
-    public class MaterialType
+
+    public class EquipType
     {
         [Key]
         public int Id { get; set; }

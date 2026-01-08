@@ -1,10 +1,11 @@
 ﻿using ChatBoxOpenAI.Models;
+using EchoesOfTheRealms;
 using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace EchoesOfTheRealmsShared.Services
 {
-    public class AIService(HttpClient client)
+    public class AIService(HttpClient client,EotRContext _context)
     {
         public async Task<(string?, string?)> SendMessage(string newMessage, string role, string? preprompt = null)
         {

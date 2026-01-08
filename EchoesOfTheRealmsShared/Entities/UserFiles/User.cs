@@ -23,6 +23,7 @@ namespace EchoesOfTheRealmsShared.Entities.UserFiles
         [Required]
         public string FirstName { get; set; } = null!;
 
+        [Required]
         public string Mail { get; set; } = null!;
 
         public string Note { get; set; } = null!;

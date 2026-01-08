@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace EchoesOfTheRealmsShared.Entities.MonsterFiles
 {
@@ -7,9 +8,10 @@ namespace EchoesOfTheRealmsShared.Entities.MonsterFiles
 
     public class MonsterType
     {
-
+        [Key]
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; } = null!;
 
         #region FK
