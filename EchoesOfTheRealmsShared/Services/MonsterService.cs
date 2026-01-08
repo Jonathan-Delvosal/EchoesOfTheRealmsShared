@@ -138,5 +138,13 @@ namespace EchoesOfTheRealmsShared.Services
 
             return query.ToList();
         }
+
+        public Monster GetById(long id)
+        {
+
+
+
+            return Monster ;
+        }
     }
 }
