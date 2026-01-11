@@ -139,12 +139,21 @@ namespace EchoesOfTheRealmsShared.Services
             return query.ToList();
         }
 
-        public Monster GetById(long id)
+        //public Monster GetById(long id)
+        //{
+
+
+
+        //    return Monster ;
+        //}
+
+        public Monster GetMonsterByLvl(int lvlMin, int lvlMax)
         {
+            var Liste = _db.Monsters.Where(m => !m.IsDeleted && m.Level >= lvlMin && m.Level <= lvlMax).ToList();
 
+            Random rnd = new Random();
 
-
-            return Monster ;
+            return Liste[rnd.Next(Liste.Count)];
         }
     }
 }

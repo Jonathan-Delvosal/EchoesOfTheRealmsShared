@@ -31,18 +31,18 @@ namespace EchoesOfTheRealmsShared.Services
 
         }
 
-        public NPC Create(NPC npc)
-        {
+        //public NPC Create(NPC npc)
+        //{
 
-            return ;
+        //    return ;
         
-        }
+        //}
 
-        public NPC Read(long id) { }
+        //public NPC Read(long id) { }
 
-        public bool Update(NPC npc) { }
+        //public bool Update(NPC npc) { }
 
-        public bool Delete(long id) { }
+        //public bool Delete(long id) { }
 
     }
 }
