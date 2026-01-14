@@ -1,4 +1,5 @@
-﻿using EchoesOfTheRealmsShared.Entities.EquipmentFiles;
+﻿using EchoesOfTheRealmsShared.DTO;
+using EchoesOfTheRealmsShared.Entities.EquipmentFiles;
 using EchoesOfTheRealmsShared.Entities.ItemFiles;
 using System.ComponentModel.DataAnnotations;
 
@@ -64,5 +65,9 @@ namespace EchoesOfTheRealmsShared.Entities.MonsterFiles
 
         #endregion
 
+        
+
     }
+
+   
 }

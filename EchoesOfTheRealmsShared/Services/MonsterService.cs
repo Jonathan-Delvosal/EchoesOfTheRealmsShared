@@ -1,13 +1,71 @@
 ﻿using EchoesOfTheRealms;
+using EchoesOfTheRealmsShared.DTO;
 using EchoesOfTheRealmsShared.Entities.MonsterFiles;
+using EchoesOfTheRealmsShared.Mappers;
 using EchoesOfTheRealmsShared.Queries;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
 
 namespace EchoesOfTheRealmsShared.Services
 {
     public class MonsterService(EotRContext _db)
     {
 
-        public List<Monster> Get(MonsterQuery queryM)
+        public MonsterScreenResponseDTO? GetById(long id)
+        {
+
+            if (id <= 0) return null;
+
+            try
+            {
+
+                var monster = _db.Monsters.Include(Mtype => Mtype.MonsterType).SingleOrDefault(m => !m.IsDeleted && m.Id == id);
+
+
+                return monster?.Map();
+
+            }
+
+            catch (Exception)
+            {
+
+                //ToDo: log error
+                return null;
+
+            }
+
+        }
+
+        public Monster GetMonsterByRndLvl(int lvlMin, int lvlMax)
+        {
+            Random rnd = new Random();
+
+            var Liste = _db.Monsters
+                .Where(m => !m.IsDeleted && m.Level >= lvlMin && m.Level <= lvlMax)
+                .ToList();
+
+            return Liste[rnd.Next(Liste.Count)];
+        }
+
+
+
+
+
+
+
+
+        public List<MonsterScreenResponseDTO>?  GetListMonster()
+        {
+            var monster = _db.Monsters.Include(Mtype => Mtype.MonsterType)
+                .Select(e=> e.Map())
+                .ToList();
+
+            return monster;
+        }
+
+        public List<Monster> GetSearch(MonsterQuery queryM)
         {
 
             IQueryable<Monster> query = _db.Monsters.Where(m => !m.IsDeleted);
@@ -139,21 +197,5 @@ namespace EchoesOfTheRealmsShared.Services
             return query.ToList();
         }
 
-        //public Monster GetById(long id)
-        //{
-
-
-
-        //    return Monster ;
-        //}
-
-        public Monster GetMonsterByLvl(int lvlMin, int lvlMax)
-        {
-            var Liste = _db.Monsters.Where(m => !m.IsDeleted && m.Level >= lvlMin && m.Level <= lvlMax).ToList();
-
-            Random rnd = new Random();
-
-            return Liste[rnd.Next(Liste.Count)];
-        }
     }
 }

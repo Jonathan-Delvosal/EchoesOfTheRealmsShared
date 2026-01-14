@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace EchoesOfTheRealmsShared.Services
 {
-    public class AIService(HttpClient client,EotRContext _context)
+    public class AIService(HttpClient client)
     {
         public async Task<(string?, string?)> SendMessage(string newMessage, string role, string? preprompt = null)
         {

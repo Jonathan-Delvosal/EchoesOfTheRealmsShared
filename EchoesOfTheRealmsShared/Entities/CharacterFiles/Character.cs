@@ -13,10 +13,10 @@ namespace EchoesOfTheRealmsShared.Entities.CharacterFiles
     {
 
         [Key]
-        public long Id { get; set; }
+        public long Id { get; init; }
 
         [Required]
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
 
         public int HP { get; set; }
 
@@ -55,11 +55,11 @@ namespace EchoesOfTheRealmsShared.Entities.CharacterFiles
         
         public Job Job { get; set; } = null!;
 
-        public List<Quest> Quests { get; set; }
+        public List<Quest> Quests { get; set; } = null!;
 
-        public List<Item> Items { get; set; }
+        public List<Item> Items { get; set; } = null!;
 
-        public List<Equipment> Equipments { get; set; }
+        public List<Equipment> Equipments { get; set; } = null!;
 
         //public Weapon? Weapon { get; set; }
         //public long? WeaponId { get; set; }
