@@ -6,13 +6,14 @@ using EchoesOfTheRealmsShared.Queries;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+//using Microsoft.Extensions.Logging;
 using System.Threading;
 
 namespace EchoesOfTheRealmsShared.Services
 {
-    public class MonsterService(EotRContext _db)
+    public class MonsterService(EotRContext _db) //ILogger logger
     {
-
+        // Services for API
         public MonsterScreenResponseDTO? GetById(long id)
         {
 
@@ -38,15 +39,33 @@ namespace EchoesOfTheRealmsShared.Services
 
         }
 
-        public Monster GetMonsterByRndLvl(int lvlMin, int lvlMax)
+        public MonsterScreenResponseDTO? GetMonsterByRndLvl(int lvlMin, int lvlMax)
         {
+
+            if (lvlMin <= 0) return null;
+
             Random rnd = new Random();
 
-            var Liste = _db.Monsters
+            try
+            {
+                var Liste = _db.Monsters
+                    .Include(Mtype => Mtype.MonsterType)
                 .Where(m => !m.IsDeleted && m.Level >= lvlMin && m.Level <= lvlMax)
                 .ToList();
 
-            return Liste[rnd.Next(Liste.Count)];
+                return Liste[rnd.Next(Liste.Count)].Map();
+
+            }
+            catch (Exception)
+            {
+
+                //logger.LogError(ex.Message);
+                //ToDo: log error
+                return null;
+
+            }
+
+
         }
 
 
@@ -54,9 +73,9 @@ namespace EchoesOfTheRealmsShared.Services
 
 
 
+        //Services for MVC
 
-
-        public List<MonsterScreenResponseDTO>?  GetListMonster()
+        public List<MonsterScreenResponseDTO>  GetListMonster()
         {
             var monster = _db.Monsters.Include(Mtype => Mtype.MonsterType)
                 .Select(e=> e.Map())
@@ -65,10 +84,38 @@ namespace EchoesOfTheRealmsShared.Services
             return monster;
         }
 
-        public List<Monster> GetSearch(MonsterQuery queryM)
+        public List<string> GetMonsterType()
+        {
+            
+            try
+            {
+                var list = _db.MonstersTypes
+                .Where(t => t.Name)
+                .ToList();
+
+                return list;
+
+            }
+
+            catch (Exception)
+            {
+
+                //logger.LogError(ex.Message);
+                //ToDo: log error
+                return null;
+
+            }
+        }
+
+        public List<MonsterScreenResponseDTO> GetSearch(MonsterQuery queryM)
         {
 
-            IQueryable<Monster> query = _db.Monsters.Where(m => !m.IsDeleted);
+            IQueryable<MonsterScreenResponseDTO> query = (IQueryable<MonsterScreenResponseDTO>)_db.Monsters
+                .Where(m => !m.IsDeleted)
+                .Include(Mtype => Mtype.MonsterType)
+                .Select(e => e.Map())
+                .ToList();
+
             if (queryM.type != null)
             {
                 query = query.Where(m => m.MonsterType.Name == queryM.type);
@@ -76,12 +123,12 @@ namespace EchoesOfTheRealmsShared.Services
 
             if (queryM.hpMin != null)
             {
-                query = query.Where(m => m.HP >= queryM.hpMin);
+                query = query.Where(m => m.Hp >= queryM.hpMin);
             }
 
             if (queryM.hpMax != null)
             {
-                query = query.Where(m => m.HP <= queryM.hpMax);
+                query = query.Where(m => m.Hp <= queryM.hpMax);
             }
 
             if (queryM.levelMin != null)
@@ -176,12 +223,12 @@ namespace EchoesOfTheRealmsShared.Services
 
             if (queryM.xpMin != null)
             {
-                query = query.Where(m => m.XPGiven >= queryM.xpMin);
+                query = query.Where(m => m.XpGiven >= queryM.xpMin);
             }
 
             if (queryM.xpMax != null)
             {
-                query = query.Where(m => m.XPGiven <= queryM.xpMax);
+                query = query.Where(m => m.XpGiven <= queryM.xpMax);
             }
 
             if (queryM.goldMin != null)
@@ -194,7 +241,7 @@ namespace EchoesOfTheRealmsShared.Services
                 query = query.Where(m => m.GoldGiven <= queryM.goldMax);
             }
 
-            return query.ToList();
+            return (List<MonsterScreenResponseDTO>)query;
         }
 
     }

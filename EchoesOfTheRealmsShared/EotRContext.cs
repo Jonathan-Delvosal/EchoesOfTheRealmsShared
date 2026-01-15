@@ -275,8 +275,52 @@ namespace EchoesOfTheRealms
                     ResLightning = 5, 
                     XPGiven = 25, 
                     GoldGiven = 10, 
-                    IsDeleted = false}
-                ]);
+                    IsDeleted = false
+                },
+
+
+
+                new Monster
+                {
+                    Id = 2,
+                    MonsterTypeId = 2,
+                    Name = "Squelette décrépit",
+                    HP = 50,
+                    Mana = 1,
+                    Level = 1,
+                    Str = 40,
+                    Dex = 10,
+                    Intel = 5,
+                    Vita = 50,
+                    ResFire = 5,
+                    ResIce = 5,
+                    ResLightning = 20,
+                    XPGiven = 50,
+                    GoldGiven = 25,
+                    IsDeleted = false
+                },
+
+                new Monster
+                {
+                    Id = 3,
+                    MonsterTypeId = 3,
+                    Name = "Golem nain",
+                    HP = 100,
+                    Mana = 1,
+                    Level = 1,
+                    Str = 100,
+                    Dex = 20,
+                    Intel = 10,
+                    Vita = 50,
+                    ResFire = 20,
+                    ResIce = 5,
+                    ResLightning = 50,
+                    XPGiven = 100,
+                    GoldGiven = 50,
+                    IsDeleted = false
+                }
+            ]);
+
 
             modelBuilder.Entity<NPC>().HasData([
                 new NPC

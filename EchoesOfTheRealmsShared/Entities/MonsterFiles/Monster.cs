@@ -65,9 +65,6 @@ namespace EchoesOfTheRealmsShared.Entities.MonsterFiles
 
         #endregion
 
-        
-
     }
 
-   
 }
