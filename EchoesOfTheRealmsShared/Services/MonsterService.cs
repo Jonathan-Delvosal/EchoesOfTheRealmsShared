@@ -77,7 +77,8 @@ namespace EchoesOfTheRealmsShared.Services
 
         public List<MonsterScreenResponseDTO>  GetListMonster()
         {
-            var monster = _db.Monsters.Include(Mtype => Mtype.MonsterType)
+            var monster = _db.Monsters
+                .Include(Mtype => Mtype.MonsterType)
                 .Select(e=> e.Map())
                 .ToList();
 
@@ -90,10 +91,9 @@ namespace EchoesOfTheRealmsShared.Services
             try
             {
                 var list = _db.MonstersTypes
-                .Where(t => t.Name)
-                .ToList();
+                    .Select(t => t.Name);
 
-                return list;
+                return [.. list];
 
             }
 
@@ -102,19 +102,43 @@ namespace EchoesOfTheRealmsShared.Services
 
                 //logger.LogError(ex.Message);
                 //ToDo: log error
-                return null;
+                return [];
 
             }
+        }
+
+        public void SetMonsterType(string MType)
+        {
+
+            _db.MonstersTypes.Add(
+                new MonsterType
+                {
+                    Name = MType
+                }
+                );
+
+
+            _db.SaveChanges();
+        }
+
+        public void SetNewMonster(Monster form, string type)
+        {
+
+            form.MonsterTypeId = _db.MonstersTypes.First(t => t.Name == type).Id;
+
+            _db.Monsters.Add(form);
+
+            _db.SaveChanges();
+
         }
 
         public List<MonsterScreenResponseDTO> GetSearch(MonsterQuery queryM)
         {
 
-            IQueryable<MonsterScreenResponseDTO> query = (IQueryable<MonsterScreenResponseDTO>)_db.Monsters
+            var query = _db.Monsters
                 .Where(m => !m.IsDeleted)
                 .Include(Mtype => Mtype.MonsterType)
-                .Select(e => e.Map())
-                .ToList();
+                .AsQueryable();
 
             if (queryM.type != null)
             {
@@ -123,12 +147,12 @@ namespace EchoesOfTheRealmsShared.Services
 
             if (queryM.hpMin != null)
             {
-                query = query.Where(m => m.Hp >= queryM.hpMin);
+                query = query.Where(m => m.HP >= queryM.hpMin);
             }
 
             if (queryM.hpMax != null)
             {
-                query = query.Where(m => m.Hp <= queryM.hpMax);
+                query = query.Where(m => m.HP <= queryM.hpMax);
             }
 
             if (queryM.levelMin != null)
@@ -223,12 +247,12 @@ namespace EchoesOfTheRealmsShared.Services
 
             if (queryM.xpMin != null)
             {
-                query = query.Where(m => m.XpGiven >= queryM.xpMin);
+                query = query.Where(m => m.XPGiven >= queryM.xpMin);
             }
 
             if (queryM.xpMax != null)
             {
-                query = query.Where(m => m.XpGiven <= queryM.xpMax);
+                query = query.Where(m => m.XPGiven <= queryM.xpMax);
             }
 
             if (queryM.goldMin != null)
@@ -241,7 +265,17 @@ namespace EchoesOfTheRealmsShared.Services
                 query = query.Where(m => m.GoldGiven <= queryM.goldMax);
             }
 
-            return (List<MonsterScreenResponseDTO>)query;
+            return query.Select(e => e.Map()).ToList();
+        }
+
+        public void SetDeleted(long id)
+        {
+            Monster? m = _db.Monsters.Find(id);
+            if (m != null)
+            {
+                m.IsDeleted = true;                
+            }
+            _db.SaveChanges();
         }
 
     }
