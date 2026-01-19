@@ -9,26 +9,39 @@ namespace EotR.App.Utils
 {
     public static class PasswordUtils
     {
-        public static string Hash(string password)
+        //public static string Hash(string password)
+        //{
+        //    Guid salt = Guid.NewGuid();
+
+        //    return Hash(password, salt);
+        //}
+
+        //public static string Hash(String password, Guid salt)
+        //{
+        //    string hash = Convert.ToBase64String (SHA512.HashData(Encoding.UTF8.GetBytes(password + salt)));
+
+        //    return salt + hash;
+        //}
+
+        //public static bool VerifyPassword(string password, string encodedPassword)
+        //{
+        //    Guid salt = new Guid(encodedPassword[..36]);
+
+        //    return Hash(password, salt) == encodedPassword;
+        //}
+
+        public static string HashPassword(string password, Guid salt)
         {
-            Guid salt = Guid.NewGuid();
-
-            return Hash(password, salt);
-        }
-
-        public static string Hash(String password, Guid salt)
-        {
-            string hash = Convert.ToBase64String (SHA512.HashData(Encoding.UTF8.GetBytes(password + salt)));
-
+            byte[] hashBytes = SHA512.HashData(Encoding.UTF8.GetBytes(password + salt));
+            string hash = Convert.ToBase64String(hashBytes);
             return salt + hash;
         }
 
-        public static bool VerifyPassword(string password, string encodedPassword)
+        public static bool CheckPassword(string password, string encodedPassword)
         {
-            Guid salt = new Guid(encodedPassword[..36]);
-
-            return Hash(password, salt) == encodedPassword;
+            string salt = encodedPassword[..36];
+            return encodedPassword == HashPassword(password, Guid.Parse(salt));
         }
-        
+
     }
 }

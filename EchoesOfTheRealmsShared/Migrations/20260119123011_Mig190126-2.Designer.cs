@@ -4,6 +4,7 @@ using EchoesOfTheRealms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EchoesOfTheRealmsShared.Migrations
 {
     [DbContext(typeof(EotRContext))]
-    partial class EotRContextModelSnapshot : ModelSnapshot
+    [Migration("20260119123011_Mig190126-2")]
+    partial class Mig1901262
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -939,6 +942,7 @@ namespace EchoesOfTheRealmsShared.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Note")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
@@ -947,10 +951,10 @@ namespace EchoesOfTheRealmsShared.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Mail")
+                    b.HasIndex("NickName")
                         .IsUnique();
 
-                    b.HasIndex("NickName")
+                    b.HasIndex("Mail", "NickName")
                         .IsUnique();
 
                     b.ToTable("Users");
@@ -990,17 +994,17 @@ namespace EchoesOfTheRealmsShared.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "User"
+                            Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Moderator"
+                            Name = "User"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Admin"
+                            Name = "Moderator"
                         });
                 });
 

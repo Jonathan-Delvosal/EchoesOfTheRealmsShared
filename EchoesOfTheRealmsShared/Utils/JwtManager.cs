@@ -13,10 +13,10 @@ namespace EotR.App.Utils
     {
         private readonly JwtSecurityTokenHandler _handler = new();
 
-        private readonly SecurityKey _securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("EchoesOfTheRealms by Haku"));
+        private readonly SecurityKey _securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("EchoesOfTheRealms by Haku!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"));
 
 
-        public string CreateToken(int ID, string NickName, string Role)
+        public string CreateToken(int ID, string NickName, List<string> Role)
         {
             JwtSecurityToken t = new(
             
@@ -26,11 +26,12 @@ namespace EotR.App.Utils
                 
                     new Claim(ClaimTypes.NameIdentifier, ID.ToString(), ClaimValueTypes.Integer),
                     new Claim(ClaimTypes.Name, NickName),
-                    new Claim(ClaimTypes.Role, Role)
+                    ..Role.Select(r => new Claim(ClaimTypes.Role, r))
+                    
                 ],
-                DateTime.Now,
-                DateTime.Now.AddMinutes(15),
-                new SigningCredentials(_securityKey, SecurityAlgorithms.HmacSha512)
+                DateTime.UtcNow,
+                DateTime.UtcNow.AddHours(15),
+                new SigningCredentials(_securityKey, SecurityAlgorithms.HmacSha256)
             );
 
             return _handler.WriteToken(t);

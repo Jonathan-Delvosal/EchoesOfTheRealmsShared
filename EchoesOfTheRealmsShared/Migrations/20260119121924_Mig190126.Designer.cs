@@ -4,6 +4,7 @@ using EchoesOfTheRealms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EchoesOfTheRealmsShared.Migrations
 {
     [DbContext(typeof(EotRContext))]
-    partial class EotRContextModelSnapshot : ModelSnapshot
+    [Migration("20260119121924_Mig190126")]
+    partial class Mig190126
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -939,6 +942,7 @@ namespace EchoesOfTheRealmsShared.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Note")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
@@ -947,10 +951,10 @@ namespace EchoesOfTheRealmsShared.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Mail")
+                    b.HasIndex("NickName")
                         .IsUnique();
 
-                    b.HasIndex("NickName")
+                    b.HasIndex("Mail", "NickName")
                         .IsUnique();
 
                     b.ToTable("Users");
@@ -966,7 +970,7 @@ namespace EchoesOfTheRealmsShared.Migrations
                             Mail = "jonathan.delvosal@outlook.com",
                             NickName = "Hakuryu",
                             Note = "Créateur du jeu",
-                            Password = "c3d435eb-8ca7-42ee-97b4-643d7ba76b36HN8puinASaYoKZXLUek0k6LfkSkTTxaDYMDAI87rSCpgDZ9DQSSjMfSyQ14x2SZGieNNR0I9NcbhPZgtwzlEkw=="
+                            Password = "Hakuryu1234-*"
                         });
                 });
 
@@ -990,17 +994,17 @@ namespace EchoesOfTheRealmsShared.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "User"
+                            Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Moderator"
+                            Name = "User"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Admin"
+                            Name = "Moderator"
                         });
                 });
 

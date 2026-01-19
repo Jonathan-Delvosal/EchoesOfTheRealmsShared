@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EchoesOfTheRealmsShared.Entities.UserFiles
 {
-    [Index("Mail", "NickName", IsUnique = true)]
+    [Index("Mail", IsUnique = true)]
     [Index("NickName", IsUnique = true)]
     public class User
     {
@@ -14,6 +14,9 @@ namespace EchoesOfTheRealmsShared.Entities.UserFiles
 
         [Required]
         public string NickName { get; set; } = null!;
+
+        [Required]
+        public string Password { get; set; } = null!;
 
         public string? Avatar { get; set; }
 
@@ -26,7 +29,7 @@ namespace EchoesOfTheRealmsShared.Entities.UserFiles
         [Required]
         public string Mail { get; set; } = null!;
 
-        public string Note { get; set; } = null!;
+        public string? Note { get; set; }
 
         public bool IsBanned { get; set; }
 

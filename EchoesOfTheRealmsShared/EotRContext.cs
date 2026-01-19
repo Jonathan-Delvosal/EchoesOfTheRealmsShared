@@ -7,6 +7,7 @@ using EchoesOfTheRealmsShared.Entities.CharacterFiles;
 using EchoesOfTheRealmsShared.Entities.Useless;
 using EchoesOfTheRealmsShared.Entities.NPCFiles;
 using EchoesOfTheRealmsShared.Entities.QuestFiles;
+using EotR.App.Utils;
 
 namespace EchoesOfTheRealms
 {
@@ -355,17 +356,17 @@ namespace EchoesOfTheRealms
                 new UserRole
                 { 
                     Id = 1, 
-                    Name = "Admin" 
-                },
-                new UserRole
-                { 
-                    Id = 2, 
                     Name = "User" 
                 },
                 new UserRole
                 { 
-                    Id = 3, 
+                    Id = 2, 
                     Name = "Moderator" 
+                },
+                new UserRole
+                { 
+                    Id = 3, 
+                    Name = "Admin" 
                 },
 
                 ]);
@@ -375,13 +376,14 @@ namespace EchoesOfTheRealms
                 new User
                     { 
                         Id = 1, 
-                        NickName = "Hakuryu", 
+                        NickName = "Hakuryu",
+                        Password = PasswordUtils.HashPassword("Hakuryu1234-*", Guid.Parse("c3d435eb-8ca7-42ee-97b4-643d7ba76b36")),
                         LastName = "Delvosal", 
                         FirstName = "Jonathan", 
                         Mail = "jonathan.delvosal@outlook.com",
                         Note = "Créateur du jeu",
                         IsBanned = false,
-                        IsDeleted = false  
+                        IsDeleted = false ,
                     }
                 ]);
 
