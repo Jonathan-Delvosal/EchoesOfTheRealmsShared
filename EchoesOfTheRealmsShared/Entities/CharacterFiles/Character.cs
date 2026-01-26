@@ -61,17 +61,17 @@ namespace EchoesOfTheRealmsShared.Entities.CharacterFiles
 
         public List<Equipment> Equipments { get; set; } = null!;
 
-        //public Weapon? Weapon { get; set; }
-        //public long? WeaponId { get; set; }
+        public Weapon? Weapon { get; set; }
+        public long? WeaponId { get; set; }
 
-        //public Helmet? Helmet { get; set; }
-        //public long? HelmetId { get; set; }
+        public Helmet? Helmet { get; set; }
+        public long? HelmetId { get; set; }
 
-        //public Armor? Armor { get; set; }
-        //public long? ArmorId { get; set; }
+        public Armor? Armor { get; set; }
+        public long? ArmorId { get; set; }
 
-        //public Boot? Boot { get; set; }
-        //public long? BootId { get; set; }
+        public Boot? Boot { get; set; }
+        public long? BootId { get; set; }
 
 
         #endregion
