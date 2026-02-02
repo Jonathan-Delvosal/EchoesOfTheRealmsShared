@@ -1,6 +1,7 @@
 ﻿using EchoesOfTheRealmsShared.DTO;
 using EchoesOfTheRealmsShared.Entities.CharacterFiles;
 using EchoesOfTheRealmsShared.Entities.MonsterFiles;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,12 +63,36 @@ namespace EchoesOfTheRealmsShared.Mappers
                 ResLightningMax = c.ResLightningMax,
                 Lvl = c.LvL,
                 XP = c.XP,
-                Gold = c.Gold
+                Gold = c.Gold,
+                JobId = c.JobId,
+                Job = c.Job.Map()
 
             };
 
         }
- 
+
+        public static JobDTO Map(this Job j)
+        {
+
+            return new JobDTO
+            {
+                Id = j.Id,
+                Name = j.Name,
+                BonusLevel = j.BonusLevel,
+                BonusHP = j.BonusHP,
+                BonusMana = j.BonusMana,
+                BonusStr = j.BonusStr,
+                BonusDex = j.BonusDex,
+                BonusIntel = j.BonusIntel,
+                BonusResFire = j.BonusResFire,
+                BonusResIce = j.BonusResIce,
+                BonusResLightning = j.BonusResLightning,
+                BonusVita = j.BonusVita,
+
+            };
+
+        }
+
     }
     
 }

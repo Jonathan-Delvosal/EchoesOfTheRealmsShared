@@ -51,8 +51,8 @@ namespace EchoesOfTheRealmsShared.DTO
 
         public int Gold { get; set; }
 
+        public int JobId { get; set; }
 
-
-
+        public JobDTO? Job { get; set; }
     }
 }

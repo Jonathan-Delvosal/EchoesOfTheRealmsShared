@@ -11,7 +11,13 @@ namespace EchoesOfTheRealmsShared.Services
 
         public PCSheetDTO? GetPcByUserId(long IdUser, long IdPc)
         {
-            var Character = _db.Characters.FirstOrDefault(c => !c.IsDeleted && c.Id == IdPc && c.UserId == IdUser);
+            var Character = _db.Characters
+                .Include(c => c.Job)
+                //.Include(c => c.HelmetId)
+                //.Include(c => c.ArmorId)
+                //.Include(c => c.BootId)
+                //.Include(c => c.WeaponId)
+                .FirstOrDefault(c => !c.IsDeleted && c.Id == IdPc && c.UserId == IdUser);
 
             return Character?.Map();
         }
@@ -19,7 +25,13 @@ namespace EchoesOfTheRealmsShared.Services
         public List<PCSheetDTO> GetAllPcByUser(long IdUser)
         {
 
-            var Characters = _db.Characters.Where(c => !c.IsDeleted && c.UserId == IdUser);
+            var Characters = _db.Characters
+                .Include(c => c.Job)
+                //.Include(c => c.HelmetId)
+                //.Include(c => c.ArmorId)
+                //.Include(c => c.BootId)
+                //.Include(c => c.WeaponId)
+                .Where(c => !c.IsDeleted && c.UserId == IdUser);
 
             return Characters.Select(MapperExtension.Map).ToList();
 
