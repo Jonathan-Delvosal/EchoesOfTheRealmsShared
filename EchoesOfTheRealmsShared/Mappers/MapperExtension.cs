@@ -1,5 +1,6 @@
 ﻿using EchoesOfTheRealmsShared.DTO;
 using EchoesOfTheRealmsShared.Entities.CharacterFiles;
+using EchoesOfTheRealmsShared.Entities.EquipmentFiles;
 using EchoesOfTheRealmsShared.Entities.MonsterFiles;
 using Microsoft.Identity.Client;
 using System;
@@ -65,7 +66,11 @@ namespace EchoesOfTheRealmsShared.Mappers
                 XP = c.XP,
                 Gold = c.Gold,
                 JobId = c.JobId,
-                Job = c.Job.Map()
+                Job = c.Job.Map(),
+                Weapon = c.Weapon?.Map(),
+                Helmet = c.Helmet?.Map(),
+                Armor = c.Armor?.Map(),
+                Boot = c.Boot?.Map(),
 
             };
 
@@ -93,6 +98,34 @@ namespace EchoesOfTheRealmsShared.Mappers
 
         }
 
+        public static EquipmentDTO Map(this Equipment e)
+        {
+            return new EquipmentDTO
+            {
+                Id = e.Id,
+                IdCustom = e.IdCustom,
+                EquipType = e.Type.Name,
+                MaterialType = e.MaterialType.Name,
+                Name = e.Name,
+                Description = e.Description,
+                FlavorText = e.FlavorText,
+                ModHP = e.ModHP,
+                ModMana = e.ModMana,
+                ModStr = e.ModStr,
+                ModDex = e.ModDex,
+                ModIntel = e.ModIntel,
+                ModLvl = e.ModLVL,
+                ModVita = e.ModVita,
+                ModResFire = e.ModResFire,
+                ModResIce = e.ModResIce,
+                ModResLightning = e.ModResLightning,
+                BuyPrice = e.BuyPrice,
+                SellPrice = e.SellPrice,
+
+            };
+
+        }
+
     }
-    
+
 }

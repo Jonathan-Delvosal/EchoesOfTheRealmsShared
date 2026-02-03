@@ -7,7 +7,7 @@ namespace EchoesOfTheRealmsShared.DTO
 
         public long Id { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public int HP { get; set; }
 
@@ -54,5 +54,13 @@ namespace EchoesOfTheRealmsShared.DTO
         public int JobId { get; set; }
 
         public JobDTO? Job { get; set; }
+
+        public EquipmentDTO? Helmet { get; set; }
+
+        public EquipmentDTO? Armor { get; set; }
+
+        public EquipmentDTO? Boot { get; set; }
+
+        public EquipmentDTO? Weapon { get; set; }
     }
 }

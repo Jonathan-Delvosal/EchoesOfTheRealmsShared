@@ -17,7 +17,7 @@ namespace EchoesOfTheRealmsShared.Entities.EquipmentFiles
         public string Name { get; set; } = null!;
 
         [Required]
-        public string? Description { get; set; }
+        public string Description { get; set; } = null!;
 
         public string? FlavorText { get; set; }
 
@@ -55,19 +55,19 @@ namespace EchoesOfTheRealmsShared.Entities.EquipmentFiles
 
         #region FK
         [Required]
-        public int Type { get; set; }
+        public int TypeId { get; set; }
 
-        public List<EquipType> Types { get; set; } = null!;
+        public EquipType Type { get; set; } = null!;
 
         [Required]
-        public int Materials { get; set; }
+        public int MaterialTypeId { get; set; }
 
-        public List<MaterialType> MaterialTypes { get; set; } = null!;
+        public MaterialType MaterialType { get; set; } = null!;
 
 
         public List<Quest> Quest { get; set; } = null!;
 
-        public List<Character> Characters { get; set; }
+        public List<Character>? Characters { get; set; }
 
         public List<Monster> Monster { get; set; } = null!;
         #endregion

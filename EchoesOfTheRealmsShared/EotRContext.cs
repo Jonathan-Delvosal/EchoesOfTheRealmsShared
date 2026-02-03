@@ -66,7 +66,8 @@ namespace EchoesOfTheRealms
                         Gold = 100,
                         IsDeleted = false,
                         UserId = 1,
-                        JobId = 1
+                        JobId = 1, 
+                        WeaponId = 1,
                     }
             ]);
 
@@ -183,8 +184,8 @@ namespace EchoesOfTheRealms
                 new Weapon
                     {
                         Id = 1,
-                        Type = 1,
-                        Materials = 3,
+                        TypeId = 1,
+                        MaterialTypeId = 3,
                         IdCustom = 113000000001,
                         Name = "Epée en fer",
                         Description = "Une épée basique en fer.",

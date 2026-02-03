@@ -13,10 +13,22 @@ namespace EchoesOfTheRealmsShared.Services
         {
             var Character = _db.Characters
                 .Include(c => c.Job)
-                //.Include(c => c.HelmetId)
-                //.Include(c => c.ArmorId)
-                //.Include(c => c.BootId)
-                //.Include(c => c.WeaponId)
+                .Include(c => c.Helmet)
+                    .ThenInclude(h => h.Type)
+                .Include(c => c.Helmet)
+                    .ThenInclude(h => h.MaterialType)
+                .Include(c => c.Armor)
+                    .ThenInclude(a => a.Type)
+                .Include(c => c.Armor)
+                    .ThenInclude(a => a.MaterialType)
+                .Include(c => c.Boot)
+                    .ThenInclude(b => b.Type)
+                .Include(c => c.Boot)
+                    .ThenInclude(b => b.MaterialType)
+                .Include(c => c.Weapon)
+                    .ThenInclude(w => w.Type)
+                .Include(c => c.Weapon)
+                    .ThenInclude(w => w.MaterialType)
                 .FirstOrDefault(c => !c.IsDeleted && c.Id == IdPc && c.UserId == IdUser);
 
             return Character?.Map();
@@ -27,10 +39,22 @@ namespace EchoesOfTheRealmsShared.Services
 
             var Characters = _db.Characters
                 .Include(c => c.Job)
-                //.Include(c => c.HelmetId)
-                //.Include(c => c.ArmorId)
-                //.Include(c => c.BootId)
-                //.Include(c => c.WeaponId)
+                .Include(c => c.Helmet)
+                    .ThenInclude(h => h.Type)
+                .Include(c => c.Helmet)
+                    .ThenInclude(h => h.MaterialType)
+                .Include(c => c.Armor)
+                    .ThenInclude(a => a.Type)
+                .Include(c => c.Armor)
+                    .ThenInclude(a => a.MaterialType)
+                .Include(c => c.Boot)
+                    .ThenInclude(b => b.Type)
+                .Include(c => c.Boot)
+                    .ThenInclude(b => b.MaterialType)
+                .Include(c => c.Weapon)
+                    .ThenInclude(w => w.Type)
+                .Include(c => c.Weapon)
+                    .ThenInclude(w => w.MaterialType)
                 .Where(c => !c.IsDeleted && c.UserId == IdUser);
 
             return Characters.Select(MapperExtension.Map).ToList();

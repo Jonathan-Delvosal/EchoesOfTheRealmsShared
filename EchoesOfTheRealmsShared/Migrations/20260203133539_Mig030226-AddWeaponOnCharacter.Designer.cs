@@ -4,6 +4,7 @@ using EchoesOfTheRealms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EchoesOfTheRealmsShared.Migrations
 {
     [DbContext(typeof(EotRContext))]
-    partial class EotRContextModelSnapshot : ModelSnapshot
+    [Migration("20260203133539_Mig030226-AddWeaponOnCharacter")]
+    partial class Mig030226AddWeaponOnCharacter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -402,7 +405,7 @@ namespace EchoesOfTheRealmsShared.Migrations
                     b.Property<int>("LvLPrerequisites")
                         .HasColumnType("int");
 
-                    b.Property<int>("MaterialTypeId")
+                    b.Property<int>("Materials")
                         .HasColumnType("int");
 
                     b.Property<int?>("ModDex")
@@ -445,14 +448,10 @@ namespace EchoesOfTheRealmsShared.Migrations
                     b.Property<string>("Sprite")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeId")
+                    b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MaterialTypeId");
-
-                    b.HasIndex("TypeId");
 
                     b.ToTable("Equipments");
 
@@ -1065,6 +1064,36 @@ namespace EchoesOfTheRealmsShared.Migrations
                         });
                 });
 
+            modelBuilder.Entity("EquipTypeEquipment", b =>
+                {
+                    b.Property<long>("EquipmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("TypesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EquipmentId", "TypesId");
+
+                    b.HasIndex("TypesId");
+
+                    b.ToTable("EquipTypeEquipment");
+                });
+
+            modelBuilder.Entity("EquipmentMaterialType", b =>
+                {
+                    b.Property<long>("EquipmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("MaterialTypesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EquipmentId", "MaterialTypesId");
+
+                    b.HasIndex("MaterialTypesId");
+
+                    b.ToTable("EquipmentMaterialType");
+                });
+
             modelBuilder.Entity("EquipmentMonster", b =>
                 {
                     b.Property<long>("EquipmentId")
@@ -1147,11 +1176,11 @@ namespace EchoesOfTheRealmsShared.Migrations
                             IdCustom = 113000000001L,
                             IsDeleted = false,
                             LvLPrerequisites = 0,
-                            MaterialTypeId = 3,
+                            Materials = 3,
                             ModStr = 15,
                             Name = "Epée en fer",
                             SellPrice = 25,
-                            TypeId = 1
+                            Type = 1
                         });
                 });
 
@@ -1243,25 +1272,6 @@ namespace EchoesOfTheRealmsShared.Migrations
                     b.Navigation("Weapon");
                 });
 
-            modelBuilder.Entity("EchoesOfTheRealmsShared.Entities.EquipmentFiles.Equipment", b =>
-                {
-                    b.HasOne("EchoesOfTheRealmsShared.Entities.EquipmentFiles.MaterialType", "MaterialType")
-                        .WithMany("Equipment")
-                        .HasForeignKey("MaterialTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EchoesOfTheRealmsShared.Entities.EquipmentFiles.EquipType", "Type")
-                        .WithMany("Equipment")
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MaterialType");
-
-                    b.Navigation("Type");
-                });
-
             modelBuilder.Entity("EchoesOfTheRealmsShared.Entities.ItemFiles.Item", b =>
                 {
                     b.HasOne("EchoesOfTheRealmsShared.Entities.ItemFiles.ItemType", "ItemType")
@@ -1329,6 +1339,36 @@ namespace EchoesOfTheRealmsShared.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("EquipTypeEquipment", b =>
+                {
+                    b.HasOne("EchoesOfTheRealmsShared.Entities.EquipmentFiles.Equipment", null)
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EchoesOfTheRealmsShared.Entities.EquipmentFiles.EquipType", null)
+                        .WithMany()
+                        .HasForeignKey("TypesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EquipmentMaterialType", b =>
+                {
+                    b.HasOne("EchoesOfTheRealmsShared.Entities.EquipmentFiles.Equipment", null)
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EchoesOfTheRealmsShared.Entities.EquipmentFiles.MaterialType", null)
+                        .WithMany()
+                        .HasForeignKey("MaterialTypesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("EquipmentMonster", b =>
                 {
                     b.HasOne("EchoesOfTheRealmsShared.Entities.EquipmentFiles.Equipment", null)
@@ -1379,19 +1419,9 @@ namespace EchoesOfTheRealmsShared.Migrations
                     b.Navigation("Character");
                 });
 
-            modelBuilder.Entity("EchoesOfTheRealmsShared.Entities.EquipmentFiles.EquipType", b =>
-                {
-                    b.Navigation("Equipment");
-                });
-
             modelBuilder.Entity("EchoesOfTheRealmsShared.Entities.EquipmentFiles.Equipment", b =>
                 {
                     b.Navigation("Quest");
-                });
-
-            modelBuilder.Entity("EchoesOfTheRealmsShared.Entities.EquipmentFiles.MaterialType", b =>
-                {
-                    b.Navigation("Equipment");
                 });
 
             modelBuilder.Entity("EchoesOfTheRealmsShared.Entities.ItemFiles.Item", b =>
