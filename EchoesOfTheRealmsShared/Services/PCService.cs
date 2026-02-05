@@ -61,5 +61,16 @@ namespace EchoesOfTheRealmsShared.Services
 
         }
 
+        public List<JobDTO> GetAllJobs()
+        {
+
+            var Job = _db.Jobs.Where(c => !c.IsDeleted).Select(
+                MapperExtension.Map
+             ).ToList();
+
+
+            return Job;
+        }
+
     }
 }
