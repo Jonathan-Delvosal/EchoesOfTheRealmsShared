@@ -1,7 +1,9 @@
 ﻿using EchoesOfTheRealms;
 using EchoesOfTheRealmsShared.DTO;
-using Microsoft.EntityFrameworkCore;
+using EchoesOfTheRealmsShared.Entities.CharacterFiles;
+using EchoesOfTheRealmsShared.Entities.UserFiles;
 using EchoesOfTheRealmsShared.Mappers;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace EchoesOfTheRealmsShared.Services
@@ -70,6 +72,35 @@ namespace EchoesOfTheRealmsShared.Services
 
 
             return Job;
+        }
+
+        public void PutSavePC(SavingPCDTO dto, long idUser, long idPc)
+        {
+            Character Sheet = 
+                _db.Characters.FirstOrDefault(c => !c.IsDeleted && c.Id == idPc && c.UserId == idUser) ?? throw new Exception("Le personnage n'existe pas");
+
+            Sheet.HP = dto.Hp;
+            Sheet.HPMax = dto.HpMax;
+            Sheet.Mana = dto.Mana;
+            Sheet.ManaMax = dto.ManaMax;
+            Sheet.Str = dto.Str;
+            Sheet.Dex = dto.Dex;
+            Sheet.Intel = dto.Intel;
+            Sheet.Vita = dto.Vita;
+            Sheet.VitaMax = dto.VitaMax;
+            Sheet.ResFire = dto.ResFire;
+            Sheet.ResIce = dto.ResIce;
+            Sheet.ResLightning = dto.ResLightning;
+            Sheet.LvL = dto.Lvl;
+            Sheet.XP = dto.Xp;
+            Sheet.Gold = dto.Gold;
+            Sheet.JobId = dto.JobId;
+            Sheet.WeaponId = dto.WeaponId;
+            Sheet.HelmetId = dto.HelmetId;
+            Sheet.ArmorId = dto.ArmorId;
+            Sheet.BootId =  dto.BootId;
+
+            _db.SaveChanges();
         }
 
     }
