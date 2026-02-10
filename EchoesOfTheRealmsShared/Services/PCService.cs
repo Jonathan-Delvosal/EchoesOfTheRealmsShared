@@ -103,5 +103,31 @@ namespace EchoesOfTheRealmsShared.Services
             _db.SaveChanges();
         }
 
+        public void PostNewPC(NewPCSheetDTO dto, int idU)
+        {
+
+
+            Character Sheet = new Character() { 
+                Name = dto.Name,
+                JobId = dto.JobId,
+                HP = 50,
+                HPMax = 50,
+                Mana = 50,
+                ManaMax = 50,
+                Str = 50,
+                Dex = 50,
+                Intel = 50,
+                Vita = 100,
+                VitaMax = 100,
+                ResFire = 10,
+                ResIce = 10,
+                ResLightning = 10,
+                LvL = 1,
+                UserId = idU
+            };
+
+            _db.SaveChanges();
+        }
+
     }
 }

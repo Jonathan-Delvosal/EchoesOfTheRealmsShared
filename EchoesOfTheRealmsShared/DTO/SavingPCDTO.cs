@@ -41,13 +41,13 @@ namespace EchoesOfTheRealmsShared.DTO
 
         public int JobId { get; set; }
 
-        public long WeaponId { get; set; }
+        public long? WeaponId { get; set; }
 
-        public long HelmetId { get; set; }
+        public long? HelmetId { get; set; }
 
-        public long ArmorId { get; set; }
+        public long? ArmorId { get; set; }
 
-        public long BootId { get; set; }
+        public long? BootId { get; set; }
 
 
     }

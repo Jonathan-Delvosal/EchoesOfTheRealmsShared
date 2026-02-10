@@ -33,13 +33,13 @@ namespace EchoesOfTheRealmsShared.Entities.EquipmentFiles
 
         public int? ModLVL { get; set; }
 
-        [Required]
-        public int BuyPrice { get; set; }
-
-        [Required]
-        public int SellPrice { get; set; }
-
         public int? ModVita { get; set; }
+
+        public double? ModCritChance { get; set; }
+
+        public double? ModCritMultiplier { get; set; }
+
+        public int? ModDefense { get; set; }
 
         public int? ModResFire { get; set; }
 
@@ -51,6 +51,11 @@ namespace EchoesOfTheRealmsShared.Entities.EquipmentFiles
 
         public string? Sprite { get; set; }
 
+        [Required]
+        public int BuyPrice { get; set; }
+
+        [Required]
+        public int SellPrice { get; set; }
         public bool IsDeleted { get; set; }
 
         #region FK

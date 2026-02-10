@@ -42,6 +42,12 @@ namespace EchoesOfTheRealmsShared.Entities.CharacterFiles
 
         public int VitaMax { get; set; }
 
+        public double CritChance { get; set; }
+
+        public double CritMultiplier { get; set; }
+
+        public int Defense { get; set; }
+
         public int ResFire { get; set; }
 
         public int ResFireMax { get; set; }

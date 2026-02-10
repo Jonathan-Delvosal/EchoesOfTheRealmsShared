@@ -36,6 +36,15 @@ namespace EchoesOfTheRealmsShared.Entities.MonsterFiles
         public int Vita { get; set; }
 
         [Required]
+        public double CritChance { get; set; }
+        
+        [Required]
+        public double CritMultiplier { get; set; }
+
+        [Required]
+        public int Defense { get; set; }
+
+        [Required]
         public int ResFire { get; set; }
 
         [Required]

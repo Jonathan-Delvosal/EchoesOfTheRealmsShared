@@ -37,6 +37,15 @@ namespace EchoesOfTheRealmsShared.Entities.CharacterFiles
         public int BonusVita { get; set; }
 
         [Required]
+        public double BonusCritChance { get; set; }
+
+        [Required]
+        public double BonusCritMultiplier { get; set; }
+
+        [Required]
+        public int BonusDefense { get; set; }
+
+        [Required]
         public int BonusResFire { get; set; }
 
         [Required]
