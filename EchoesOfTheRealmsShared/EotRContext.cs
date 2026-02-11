@@ -1,13 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using EchoesOfTheRealmsShared.Entities.UserFiles;
+﻿using EchoesOfTheRealmsShared.Entities.AttackFiles;
+using EchoesOfTheRealmsShared.Entities.CharacterFiles;
 using EchoesOfTheRealmsShared.Entities.EquipmentFiles;
 using EchoesOfTheRealmsShared.Entities.ItemFiles;
 using EchoesOfTheRealmsShared.Entities.MonsterFiles;
-using EchoesOfTheRealmsShared.Entities.CharacterFiles;
-using EchoesOfTheRealmsShared.Entities.Useless;
 using EchoesOfTheRealmsShared.Entities.NPCFiles;
 using EchoesOfTheRealmsShared.Entities.QuestFiles;
+using EchoesOfTheRealmsShared.Entities.Useless;
+using EchoesOfTheRealmsShared.Entities.UserFiles;
+using EchoesOfTheRealmsShared.Enums;
 using EotR.App.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace EchoesOfTheRealms
 {
@@ -17,8 +19,14 @@ namespace EchoesOfTheRealms
         public DbSet<Character> Characters { get; set; }
         public DbSet<Job> Jobs { get; set; }
 
+        public DbSet<DamageType> DamageTypes { get; set; }
+        public DbSet<Attacks> Attacks { get; set; }
+        public DbSet<JobAttacks> JobAttacks { get; set; }
+        public DbSet<MonsterAttacks> MonsterAttacks { get; set; }
+
         public DbSet<Equipment> Equipments { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
+        public DbSet<WeaponType> WeaponTypes { get; set; }
         public DbSet<Helmet> Helmets { get; set; }
         public DbSet<Armor> Armors { get; set; }
         public DbSet<Boot> Boots { get; set; }
@@ -46,140 +54,224 @@ namespace EchoesOfTheRealms
         {
 
             modelBuilder.Entity<Character>().HasData([
-                new Character 
-                    {
-                        Id = 1,
-                        Name = "Haku",
-                        HP = 50,
-                        HPMax = 50,
-                        Mana = 50,
-                        ManaMax = 50,
-                        Str = 50,
-                        Dex = 50,
-                        Intel = 50,
-                        Vita = 100,
-                        CritChance = 0.05,
-                        CritMultiplier = 1.5,
-                        Defense = 10,
-                        ResFire = 10,
-                        ResIce = 10,
-                        ResLightning = 10,
-                        LvL = 1,
-                        XP = 0,
-                        Gold = 100,
-                        IsDeleted = false,
-                        UserId = 1,
-                        JobId = 1, 
-                        WeaponId = 1,
-                    }
+                new Character
+                {
+                    Id = 1,
+                    Name = "Haku",
+                    HP = 50,
+                    HPMax = 50,
+                    Mana = 50,
+                    ManaMax = 50,
+                    Str = 50,
+                    Dex = 50,
+                    Intel = 50,
+                    Vita = 100,
+                    CritChance = 0.05,
+                    CritMultiplier = 1.5,
+                    Defense = 10,
+                    ResFire = 10,
+                    ResIce = 10,
+                    ResLightning = 10,
+                    LvL = 1,
+                    XP = 0,
+                    Gold = 100,
+                    IsDeleted = false,
+                    UserId = 1,
+                    JobId = 1,
+                    WeaponId = 1,
+                }
             ]);
 
             modelBuilder.Entity<Job>().HasData([
-                new Job 
-                    {
-                        Id = 1,
-                        Name = "Guerrier",
-                        BonusHP = 100,
-                        BonusMana = 25,
-                        BonusStr = 100,
-                        BonusDex = 50,
-                        BonusIntel = 25,
-                        BonusLevel = 0,
-                        BonusVita = 200,
-                        BonusDefense = 20,
-                        BonusCritChance = 0.02,
-                        BonusCritMultiplier = 0.02,
-                        BonusResFire = 10,
-                        BonusResIce = 10,
-                        BonusResLightning = 10,
-                        IsDeleted = false
+                new Job
+                {
+                    Id = 1,
+                    Name = "Guerrier",
+                    BonusHP = 100,
+                    BonusMana = 25,
+                    BonusStr = 100,
+                    BonusDex = 50,
+                    BonusIntel = 25,
+                    BonusLevel = 0,
+                    BonusVita = 200,
+                    BonusDefense = 25,
+                    BonusCritChance = 0.01,
+                    BonusCritMultiplier = 0.1,
+                    BonusResFire = 10,
+                    BonusResIce = 10,
+                    BonusResLightning = 10,
+                    IsDeleted = false
                  },
 
-                new Job 
-                    {
-                        Id = 2,
-                        Name = "Voleur",
-                        BonusHP = 75,
-                        BonusMana = 50,
-                        BonusStr = 50,
-                        BonusDex = 100,
-                        BonusIntel = 25,
-                        BonusLevel = 0,
-                        BonusVita = 150,
-                        BonusDefense = 15,
-                        BonusCritChance = 0.2,
-                        BonusCritMultiplier = 2,
-                        BonusResFire = 10,
-                        BonusResIce = 10,
-                        BonusResLightning = 10,
-                        IsDeleted = false
-                    },
+                new Job
+                {
+                    Id = 2,
+                    Name = "Voleur",
+                    BonusHP = 75,
+                    BonusMana = 50,
+                    BonusStr = 50,
+                    BonusDex = 100,
+                    BonusIntel = 25,
+                    BonusLevel = 0,
+                    BonusVita = 150,
+                    BonusDefense = 10,
+                    BonusCritChance = 0.05,
+                    BonusCritMultiplier = 0.2,
+                    BonusResFire = 10,
+                    BonusResIce = 10,
+                    BonusResLightning = 10,
+                    IsDeleted = false
+                },
 
-                new Job 
-                    {
-                        Id = 3,
-                        Name = "Mage",
-                        BonusHP = 50,
-                        BonusMana = 100,
-                        BonusStr = 25,
-                        BonusDex = 50,
-                        BonusIntel = 100,
-                        BonusLevel = 0,
-                        BonusVita = 150,
-                        BonusDefense = 5,
-                        BonusCritChance = 0.05,
-                        BonusCritMultiplier = 2.5,
-                        BonusResFire = 20,
-                        BonusResIce = 20,
-                        BonusResLightning = 20,
-                        IsDeleted = false
-                    },
+                new Job
+                {
+                    Id = 3,
+                    Name = "Mage",
+                    BonusHP = 50,
+                    BonusMana = 100,
+                    BonusStr = 25,
+                    BonusDex = 50,
+                    BonusIntel = 100,
+                    BonusLevel = 0,
+                    BonusVita = 150,
+                    BonusDefense = 5,
+                    BonusCritChance = 0.02,
+                    BonusCritMultiplier = 0.3,
+                    BonusResFire = 20,
+                    BonusResIce = 20,
+                    BonusResLightning = 20,
+                    IsDeleted = false
+                },
+            ]);
+
+            modelBuilder.Entity<DamageType>().HasData([
+                new DamageType
+                {
+                    Id = 1,
+                    Name = "Physique",
+                },
+
+                new DamageType
+                {
+                    Id = 2,
+                    Name = "Feu",
+                },
+
+                new DamageType
+                {
+                    Id = 3,
+                    Name = "Glace",
+                },
+
+                new DamageType
+                {
+                    Id = 4,
+                    Name = "Foudre",
+                }
+            ]);
+
+            modelBuilder.Entity<JobAttacks>()
+                        .HasKey(ja => new { ja.JobId, ja.AttackId });
+
+            modelBuilder.Entity<MonsterAttacks>()
+                        .HasKey(ma => new { ma.MonsterId, ma.AttackId });
+
+            modelBuilder.Entity<Attacks>().HasData([
+                new Attacks
+                {
+                    Id = 1,
+                    Name = "Coup d'épée",
+                    Description = "Une attaque basique à l'épée.",
+                    ManaCost = 0,
+                    Multiplier = 0.30,
+                    CanCrit = true,
+                    DefenseTarget = DefenseTargetType.Defense,      // 0 = Defense
+                    PrimaryStat = StatType.Strength,        // 0 = Str
+                    SecondaryStat = null,
+                    SecondaryWeight = 0.0,
+                    DamageTypeId = 1        // 1 = Physique
+                }
+            ]);
+
+            modelBuilder.Entity<JobAttacks>().HasData([
+                new JobAttacks
+                {
+                    JobId = 1,        // Guerrier
+                    AttackId = 1,     // Coup d'épée
+                    RequiredLevel = 1
+                }
             ]);
 
             modelBuilder.Entity<MaterialType>().HasData([
-                new MaterialType 
-                    {
-                        Id = 1,
-                        Name = "Bois",
-                    },
+                new MaterialType
+                {
+                    Id = 1,
+                    Name = "Bois",
+                },
 
                 new MaterialType
-                    {
-                        Id = 2,
-                        Name = "Tissu",
-                    },
+                {
+                    Id = 2,
+                    Name = "Tissu",
+                },
 
                 new MaterialType
-                    {
-                        Id = 3,
-                        Name = "Fer",
-                    }
+                {
+                    Id = 3,
+                    Name = "Fer",
+                }
             ]);
 
             modelBuilder.Entity<EquipType>().HasData([
                 new EquipType
-                    {
-                        Id = 1,
-                        Name = "Armes",
-                    },
+                {
+                    Id = 1,
+                    Name = "Armes",
+                },
 
                 new EquipType
-                    {
-                        Id = 2,
-                        Name = "Casque",
-                    },
+                {
+                    Id = 2,
+                    Name = "Casque",
+                },
 
                 new EquipType
-                    {
-                        Id = 3,
-                        Name = "Armure",
-                    },
+                {
+                    Id = 3,
+                    Name = "Armure",
+                },
 
                 new EquipType
-                    {
-                        Id = 4,
-                        Name = "Bottes",
-                    }
+                {
+                    Id = 4,
+                    Name = "Bottes",
+                }
+            ]);
+
+            modelBuilder.Entity<WeaponType>().HasData([
+                new WeaponType
+                {
+                    Id = 1,
+                    Name = "Epee",
+                },
+
+                new WeaponType
+                {
+                    Id = 2,
+                    Name = "Arc",
+                },
+
+                new WeaponType
+                {
+                    Id = 3,
+                    Name = "Dague",
+                },
+
+                new WeaponType
+                {
+                    Id = 4,
+                    Name = "Bâton",
+                }
             ]);
 
 
@@ -194,39 +286,93 @@ namespace EchoesOfTheRealms
             //    000000001 pour l'ID unique de l'équipement (9 chiffres au total)
             modelBuilder.Entity<Weapon>().HasData([
                 new Weapon
-                    {
-                        Id = 1,
-                        TypeId = 1,
-                        MaterialTypeId = 3,
-                        IdCustom = 113000000001,
-                        Name = "Epée en fer",
-                        Description = "Une épée basique en fer.",
-                        FlavorText = "Une épée parfaite pour les débutants.",
-                        ModStr = 15,
-                        BuyPrice = 50,
-                        SellPrice = 25,
-                        IsDeleted = false
-                    }
+                {
+                    Id = 1,
+                    TypeId = 1,
+                    MaterialTypeId = 3,
+                    WeaponTypeId = 1,
+                    IdCustom = 113000000001,
+                    Name = "Epée en fer",
+                    Description = "Une épée basique en fer.",
+                    FlavorText = "Une épée parfaite pour les débutants.",
+                    ModStr = 15,
+                    LvLPrerequisites = 1,
+                    BuyPrice = 80,
+                    SellPrice = 40,
+                    IsDeleted = false
+                },
+
+                new Weapon
+                {
+                    Id = 2,
+                    TypeId = 1,                 // Armes
+                    MaterialTypeId = 1,         // Bois
+                    WeaponTypeId = 2,
+                    IdCustom = 111000000002,
+                    Name = "Arc court",
+                    Description = "Un arc court en bois, simple et fiable.",
+                    FlavorText = "Idéal pour apprendre à viser sans se ruiner.",
+                    ModDex = 15,
+                    LvLPrerequisites = 1,
+                    BuyPrice = 80,
+                    SellPrice = 40,
+                    IsDeleted = false
+                },
+
+                new Weapon
+                {
+                    Id = 3,
+                    TypeId = 1,                 // Armes
+                    MaterialTypeId = 3,         // Fer
+                    WeaponTypeId = 3,
+                    IdCustom = 113000000003,
+                    Name = "Dague en fer",
+                    Description = "Une dague légère en fer, conçue pour frapper vite.",
+                    FlavorText = "Discrète, rapide… et parfois fatale.",
+                    ModDex = 12,
+                    ModCritChance = 0.02,       // +2% crit (léger, early-safe)
+                    LvLPrerequisites = 1,
+                    BuyPrice = 80,
+                    SellPrice = 40,
+                    IsDeleted = false
+                },
+
+                new Weapon
+                {
+                    Id = 4,
+                    TypeId = 1,                 // Armes
+                    MaterialTypeId = 1,         // Bois
+                    WeaponTypeId= 4,
+                    IdCustom = 111000000004,
+                    Name = "Bâton de mage",
+                    Description = "Un bâton en bois gravé de runes simples.",
+                    FlavorText = "Un focus basique pour canaliser la magie.",
+                    ModIntel = 15,
+                    LvLPrerequisites = 1,
+                    BuyPrice = 80,
+                    SellPrice = 40,
+                    IsDeleted = false
+                }
             ]);
 
             modelBuilder.Entity<ItemType>().HasData([
-                new ItemType 
-                    {
-                        Id = 1,
-                        Name = "Potion"
-                    },
-
-                new ItemType 
-                    {
-                        Id = 2,
-                        Name = "Bombe"
-                    },
+                new ItemType
+                {
+                    Id = 1,
+                    Name = "Potion"
+                },
 
                 new ItemType
-                    {
-                        Id = 3,
-                        Name = "Pierre",
-                    }
+                {
+                    Id = 2,
+                    Name = "Bombe"
+                },
+
+                new ItemType
+                {
+                    Id = 3,
+                    Name = "Pierre",
+                }
             ]);
 
             //21000000001
@@ -238,59 +384,62 @@ namespace EchoesOfTheRealms
 
             modelBuilder.Entity<Item>().HasData([
                 new Item
-                    { 
-                        Id = 1,
-                        ItemTypeId = 1,
-                        IdCustom = 21000000001,
-                        Name = "Potion de soin", 
-                        Description = "Une simple potion de soin.", 
-                        FlavorText = "Une petite potion qui vous rendra quelques points de vie, afin de tenir jusqu'à la fin du combat.", 
-                        Effect = "Rend 50 HP", //a remplacer par un effet fonctionnelle
-                        BuyPrice = 10, 
-                        SellPrice = 5, 
-                        IsDeleted = false
-                    }
-                ]);
+                {
+                    Id = 1,
+                    ItemTypeId = 1,
+                    IdCustom = 21000000001,
+                    Name = "Potion de soin",
+                    Description = "Une simple potion de soin.",
+                    FlavorText = "Une petite potion qui vous rendra quelques points de vie, afin de tenir jusqu'à la fin du combat.",
+                    Effect = "Rend 30 HP", //a remplacer par un effet fonctionnelle
+                    BuyPrice = 10,
+                    SellPrice = 5,
+                    IsDeleted = false
+                }
+            ]);
 
 
             modelBuilder.Entity<MonsterType>().HasData([
                 new MonsterType
-                    {
-                        Id = 1,
-                        Name = "Loup"
-                    },
-
-                new MonsterType 
-                    {
-                        Id = 2,
-                        Name = "Squelette"
-                    },
+                {
+                    Id = 1,
+                    Name = "Loup"
+                },
 
                 new MonsterType
-                    {
-                        Id = 3,
-                        Name = "Golem",
-                    }
+                {
+                    Id = 2,
+                    Name = "Squelette"
+                },
+
+                new MonsterType
+                {
+                    Id = 3,
+                    Name = "Golem",
+                }
             ]);
 
             modelBuilder.Entity<Monster>().HasData([
                 new Monster
-                { 
-                    Id = 1, 
+                {
+                    Id = 1,
                     MonsterTypeId = 1,
-                    Name = "Loup des steppes", 
-                    HP = 30, 
-                    Mana = 1, 
-                    Level = 1, 
-                    Str = 10, 
-                    Dex = 40, 
-                    Intel = 25, 
-                    Vita = 30, 
-                    ResFire = 5, 
-                    ResIce = 20, 
-                    ResLightning = 5, 
-                    XPGiven = 25, 
-                    GoldGiven = 10, 
+                    Name = "Loup des steppes",
+                    HP = 70,
+                    Mana = 1,
+                    Level = 1,
+                    Str = 40,
+                    Dex = 60,
+                    Intel = 10,
+                    Vita = 40,
+                    Defense = 10,
+                    CritChance = 0.08,
+                    CritMultiplier = 1.5,
+                    ResFire = 5,
+                    ResIce = 0,
+                    ResLightning = 5,
+                    XPGiven = 25,
+                    GoldGiven = 10,
                     IsDeleted = false
                 },
 
@@ -301,14 +450,17 @@ namespace EchoesOfTheRealms
                     Id = 2,
                     MonsterTypeId = 2,
                     Name = "Squelette décrépit",
-                    HP = 50,
+                    HP = 60,
                     Mana = 1,
                     Level = 1,
-                    Str = 40,
-                    Dex = 10,
-                    Intel = 5,
-                    Vita = 50,
-                    ResFire = 5,
+                    Str = 45,
+                    Dex = 20,
+                    Intel = 30,
+                    Vita = 35,
+                    Defense = 15,
+                    CritChance = 0.05,
+                    CritMultiplier = 1.6,
+                    ResFire = 0,
                     ResIce = 5,
                     ResLightning = 20,
                     XPGiven = 50,
@@ -321,16 +473,19 @@ namespace EchoesOfTheRealms
                     Id = 3,
                     MonsterTypeId = 3,
                     Name = "Golem nain",
-                    HP = 100,
+                    HP = 120,
                     Mana = 1,
                     Level = 1,
-                    Str = 100,
-                    Dex = 20,
-                    Intel = 10,
-                    Vita = 50,
-                    ResFire = 20,
-                    ResIce = 5,
-                    ResLightning = 50,
+                    Str = 55,
+                    Dex = 10,
+                    Intel = 5,
+                    Vita = 70,
+                    Defense = 30,
+                    CritChance = 0.02,
+                    CritMultiplier = 1.4,
+                    ResFire = 25,
+                    ResIce = -10,
+                    ResLightning = 25,
                     XPGiven = 100,
                     GoldGiven = 50,
                     IsDeleted = false
@@ -340,7 +495,7 @@ namespace EchoesOfTheRealms
 
             modelBuilder.Entity<NPC>().HasData([
                 new NPC
-                { 
+                {
                     Id = 1,
                     LastName = "Mancyan",
                     FirstName = "Arcon",
@@ -364,56 +519,56 @@ namespace EchoesOfTheRealms
                     Id = 1,
                     Name = "Marchand"
                 }
-                
-                ]);
+
+            ]);
 
             modelBuilder.Entity<UserRole>().HasData([
                 new UserRole
-                { 
-                    Id = 1, 
-                    Name = "User" 
+                {
+                    Id = 1,
+                    Name = "User"
                 },
                 new UserRole
-                { 
-                    Id = 2, 
-                    Name = "Moderator" 
+                {
+                    Id = 2,
+                    Name = "Moderator"
                 },
                 new UserRole
-                { 
-                    Id = 3, 
-                    Name = "Admin" 
+                {
+                    Id = 3,
+                    Name = "Admin"
                 },
 
-                ]);
+            ]);
 
 
             modelBuilder.Entity<User>().HasData([
                 new User
-                    { 
-                        Id = 1, 
+                    {
+                        Id = 1,
                         NickName = "Hakuryu",
                         Password = PasswordUtils.HashPassword("Hakuryu1234-*", Guid.Parse("c3d435eb-8ca7-42ee-97b4-643d7ba76b36")),
-                        LastName = "Delvosal", 
-                        FirstName = "Jonathan", 
+                        LastName = "Delvosal",
+                        FirstName = "Jonathan",
                         Mail = "jonathan.delvosal@outlook.com",
                         Note = "Créateur du jeu",
                         IsBanned = false,
                         IsDeleted = false ,
                     }
-                ]);
+            ]);
 
             modelBuilder.Entity<Address>().HasData([
                 new Address
-                { 
-                    Id = 1, 
-                    Street = "Chaussée de Waterloo", 
-                    Number = 136, 
-                    NumberBox = 0011, 
-                    City = "Namur", 
-                    PostalCode = 5002, 
-                    Country = "Belgique", 
+                {
+                    Id = 1,
+                    Street = "Chaussée de Waterloo",
+                    Number = 136,
+                    NumberBox = 0011,
+                    City = "Namur",
+                    PostalCode = 5002,
+                    Country = "Belgique",
                     CustomerId = 1}
-                ]);
+            ]);
 
             //modelBuilder.Entity<Quest>().HasData([
             //    new Quest

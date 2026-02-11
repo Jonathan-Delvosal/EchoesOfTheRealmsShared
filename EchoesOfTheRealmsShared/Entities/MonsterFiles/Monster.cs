@@ -1,4 +1,5 @@
 ﻿using EchoesOfTheRealmsShared.DTO;
+using EchoesOfTheRealmsShared.Entities.AttackFiles;
 using EchoesOfTheRealmsShared.Entities.EquipmentFiles;
 using EchoesOfTheRealmsShared.Entities.ItemFiles;
 using System.ComponentModel.DataAnnotations;
@@ -71,6 +72,8 @@ namespace EchoesOfTheRealmsShared.Entities.MonsterFiles
         public List<Item> Items { get; set; } = null!;
 
         public List<Equipment> Equipment { get; set; } = null!;
+
+        public List<MonsterAttacks> MonsterAttacks { get; set; } = new();
 
         #endregion
 

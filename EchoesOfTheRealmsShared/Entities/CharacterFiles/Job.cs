@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EchoesOfTheRealmsShared.Entities.AttackFiles;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace EchoesOfTheRealmsShared.Entities.CharacterFiles
@@ -62,7 +63,9 @@ namespace EchoesOfTheRealmsShared.Entities.CharacterFiles
 
         public int? CharacterId { get; set; }
 
-        public Character? Character { get; set; } 
+        public Character? Character { get; set; }
+
+        public List<JobAttacks> JobAttacks { get; set; } = new();
 
         #endregion
 

@@ -4,6 +4,7 @@ using EchoesOfTheRealms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EchoesOfTheRealmsShared.Migrations
 {
     [DbContext(typeof(EotRContext))]
-    partial class EotRContextModelSnapshot : ModelSnapshot
+    [Migration("20260211104228_Mig110226-RebalanceAll")]
+    partial class Mig110226RebalanceAll
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -534,48 +537,6 @@ namespace EchoesOfTheRealmsShared.Migrations
                         {
                             Id = 3,
                             Name = "Fer"
-                        });
-                });
-
-            modelBuilder.Entity("EchoesOfTheRealmsShared.Entities.EquipmentFiles.WeaponType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("WeaponTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Epee"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Arc"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Dague"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Bâton"
                         });
                 });
 
@@ -1234,11 +1195,6 @@ namespace EchoesOfTheRealmsShared.Migrations
                 {
                     b.HasBaseType("EchoesOfTheRealmsShared.Entities.EquipmentFiles.Equipment");
 
-                    b.Property<int>("WeaponTypeId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("WeaponTypeId");
-
                     b.HasDiscriminator().HasValue("Weapon");
 
                     b.HasData(
@@ -1255,8 +1211,7 @@ namespace EchoesOfTheRealmsShared.Migrations
                             ModStr = 15,
                             Name = "Epée en fer",
                             SellPrice = 40,
-                            TypeId = 1,
-                            WeaponTypeId = 1
+                            TypeId = 1
                         },
                         new
                         {
@@ -1271,8 +1226,7 @@ namespace EchoesOfTheRealmsShared.Migrations
                             ModDex = 15,
                             Name = "Arc court",
                             SellPrice = 40,
-                            TypeId = 1,
-                            WeaponTypeId = 2
+                            TypeId = 1
                         },
                         new
                         {
@@ -1288,8 +1242,7 @@ namespace EchoesOfTheRealmsShared.Migrations
                             ModDex = 12,
                             Name = "Dague en fer",
                             SellPrice = 40,
-                            TypeId = 1,
-                            WeaponTypeId = 3
+                            TypeId = 1
                         },
                         new
                         {
@@ -1304,8 +1257,7 @@ namespace EchoesOfTheRealmsShared.Migrations
                             ModIntel = 15,
                             Name = "Bâton de mage",
                             SellPrice = 40,
-                            TypeId = 1,
-                            WeaponTypeId = 4
+                            TypeId = 1
                         });
                 });
 
@@ -1528,17 +1480,6 @@ namespace EchoesOfTheRealmsShared.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EchoesOfTheRealmsShared.Entities.EquipmentFiles.Weapon", b =>
-                {
-                    b.HasOne("EchoesOfTheRealmsShared.Entities.EquipmentFiles.WeaponType", "WeaponType")
-                        .WithMany("Weapons")
-                        .HasForeignKey("WeaponTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("WeaponType");
-                });
-
             modelBuilder.Entity("EchoesOfTheRealmsShared.Entities.CharacterFiles.Job", b =>
                 {
                     b.Navigation("Character");
@@ -1557,11 +1498,6 @@ namespace EchoesOfTheRealmsShared.Migrations
             modelBuilder.Entity("EchoesOfTheRealmsShared.Entities.EquipmentFiles.MaterialType", b =>
                 {
                     b.Navigation("Equipment");
-                });
-
-            modelBuilder.Entity("EchoesOfTheRealmsShared.Entities.EquipmentFiles.WeaponType", b =>
-                {
-                    b.Navigation("Weapons");
                 });
 
             modelBuilder.Entity("EchoesOfTheRealmsShared.Entities.ItemFiles.Item", b =>
