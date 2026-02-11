@@ -186,10 +186,137 @@ namespace EchoesOfTheRealms
                     Multiplier = 0.30,
                     CanCrit = true,
                     DefenseTarget = DefenseTargetType.Defense,      // 0 = Defense
-                    PrimaryStat = StatType.Strength,        // 0 = Str
+                    PrimaryStat = StatType.Str,        // 0 = Str
                     SecondaryStat = null,
                     SecondaryWeight = 0.0,
                     DamageTypeId = 1        // 1 = Physique
+                },
+
+                new Attacks
+                {
+                    Id = 2,
+                    Name = "Tir à la volée",
+                    Description = "Un tir rapide visant à submerger l'adversaire.",
+                    ManaCost = 0,
+                    Multiplier = 0.30,
+                    CanCrit = true,
+                    DefenseTarget = DefenseTargetType.Defense,
+                    PrimaryStat = StatType.Dex,
+                    SecondaryStat = null,
+                    SecondaryWeight = 0.0,
+                    DamageTypeId = 1 // Physique
+                },
+                new Attacks
+                {
+                    Id = 3,
+                    Name = "Lancer de dague",
+                    Description = "Une dague lancée avec précision et force.",
+                    ManaCost = 0,
+                    Multiplier = 0.30,
+                    CanCrit = true,
+                    DefenseTarget = DefenseTargetType.Defense,
+                    PrimaryStat = StatType.Dex,
+                    SecondaryStat = StatType.Str,
+                    SecondaryWeight = 0.30,
+                    DamageTypeId = 1 // Physique
+                },
+                new Attacks
+                {
+                    Id = 4,
+                    Name = "Éclat magique",
+                    Description = "Un éclat d'énergie foudroyante frappant l'adversaire.",
+                    ManaCost = 0,
+                    Multiplier = 0.30,
+                    CanCrit = true,
+                    DefenseTarget = DefenseTargetType.Resistance,
+                    PrimaryStat = StatType.Intel,
+                    SecondaryStat = null,
+                    SecondaryWeight = 0.0,
+                    DamageTypeId = 4 // Foudre
+                },
+                new Attacks
+                {
+                    Id = 5,
+                    Name = "Frappe écrasante",
+                    Description = "Une frappe lourde qui écrase l'adversaire.",
+                    ManaCost = 20,
+                    Multiplier = 0.45,
+                    CanCrit = true,
+                    DefenseTarget = DefenseTargetType.Defense,
+                    PrimaryStat = StatType.Str,
+                    SecondaryStat = null,
+                    SecondaryWeight = 0.0,
+                    DamageTypeId = 1 // Physique
+                },
+                new Attacks
+                {
+                    Id = 6,
+                    Name = "Flèche perçante",
+                    Description = "Une flèche précise qui transperce la défense ennemie.",
+                    ManaCost = 20,
+                    Multiplier = 0.45,
+                    CanCrit = true,
+                    DefenseTarget = DefenseTargetType.Defense,
+                    PrimaryStat = StatType.Dex,
+                    SecondaryStat = null,
+                    SecondaryWeight = 0.0,
+                    DamageTypeId = 1 // Physique
+                },
+                new Attacks
+                {
+                    Id = 7,
+                    Name = "Lacération",
+                    Description = "Une entaille rapide qui ouvre une plaie profonde.",
+                    ManaCost = 20,
+                    Multiplier = 0.45,
+                    CanCrit = true,
+                    DefenseTarget = DefenseTargetType.Defense,
+                    PrimaryStat = StatType.Dex,
+                    SecondaryStat = StatType.Str,
+                    SecondaryWeight = 0.40,
+                    DamageTypeId = 1 // Physique
+                },
+                new Attacks
+                {
+                    Id = 8,
+                    Name = "Boule de feu",
+                    Description = "Projette une sphère de flammes brûlantes.",
+                    ManaCost = 20,
+                    Multiplier = 0.55,
+                    CanCrit = true,
+                    DefenseTarget = DefenseTargetType.Resistance,
+                    PrimaryStat = StatType.Intel,
+                    SecondaryStat = null,
+                    SecondaryWeight = 0.0,
+                    DamageTypeId = 2 // Feu
+                },
+                new Attacks
+                {
+                    Id = 9,
+                    Name = "Lance de givre",
+                    Description = "Projette une lance de givre qui transperce l'adversaire.",
+                    ManaCost = 20,
+                    Multiplier = 0.50,
+                    CanCrit = true,
+                    DefenseTarget = DefenseTargetType.Resistance,
+                    PrimaryStat = StatType.Intel,
+                    SecondaryStat = null,
+                    SecondaryWeight = 0.0,
+                    DamageTypeId = 3 // Glace
+                },
+                new Attacks
+                {
+                    Id = 10,
+                    Name = "Arc électrique",
+                    Description = "Un arc d'électricité qui frappe l'adversaire.",
+                    ManaCost = 20,
+                    Multiplier = 0.52,
+                    CanCrit = true,
+                    DefenseTarget = DefenseTargetType.Resistance,
+                    PrimaryStat = StatType.Intel,
+                    SecondaryStat = null,
+                    SecondaryWeight = 0.0,
+                    DamageTypeId = 4 // Foudre
                 }
             ]);
 
@@ -198,6 +325,60 @@ namespace EchoesOfTheRealms
                 {
                     JobId = 1,        // Guerrier
                     AttackId = 1,     // Coup d'épée
+                    RequiredLevel = 1
+                },
+                new JobAttacks
+                {
+                    JobId = 2,        // Voleur
+                    AttackId = 2,     // Tir à la volée
+                    RequiredLevel = 1
+                },
+                new JobAttacks
+                {
+                    JobId = 2,        // Voleur
+                    AttackId = 3,     // Lancer de dague
+                    RequiredLevel = 1
+                },
+                new JobAttacks
+                {
+                    JobId = 3,        // Mage
+                    AttackId = 4,     // Éclat magique
+                    RequiredLevel = 1
+                },
+                new JobAttacks
+                {
+                    JobId = 1,       // Guerrier
+                    AttackId = 5,    // Frappe écrasante
+                    RequiredLevel = 1
+                },
+                new JobAttacks
+                {
+                    JobId = 2,       // Voleur
+                    AttackId = 6,    // Flèche perçante
+                    RequiredLevel = 1
+                },
+                new JobAttacks
+                {
+                    JobId = 2,     // Voleur
+                    AttackId = 7,  // Lacération
+                    RequiredLevel = 1
+                },
+                new JobAttacks
+                {
+                    JobId = 3,     // Mage
+                    AttackId = 8,  // Boule de feu
+                    RequiredLevel = 1
+                },
+                new JobAttacks
+                {
+                    JobId = 3,     // Mage
+                    AttackId = 9,  // Lance de givre
+                    RequiredLevel = 1
+                },
+                new JobAttacks
+                {
+                    JobId = 3,      // Mage
+                    AttackId = 10,  // Arc électrique
                     RequiredLevel = 1
                 }
             ]);
@@ -273,7 +454,6 @@ namespace EchoesOfTheRealms
                     Name = "Bâton",
                 }
             ]);
-
 
             //113000000001
             //    1 pour l'équpement
@@ -442,8 +622,6 @@ namespace EchoesOfTheRealms
                     GoldGiven = 10,
                     IsDeleted = false
                 },
-
-
 
                 new Monster
                 {
