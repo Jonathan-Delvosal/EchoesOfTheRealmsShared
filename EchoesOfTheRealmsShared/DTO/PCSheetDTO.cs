@@ -45,6 +45,12 @@ namespace EchoesOfTheRealmsShared.DTO
 
         public int ResLightningMax { get; set; }
 
+        public int Defense { get; set; }
+
+        public double CritChance { get; set; }
+
+        public double CritMultiplier { get; set; }
+
         public int Lvl { get; set; }
 
         public int XP { get; set; }

@@ -29,6 +29,12 @@
 
         public int ResLightning { get; set; }
 
+        public int Defense { get; set; }
+
+        public double CritChance { get; set; }
+
+        public double CritMultiplier { get; set; }
+
         public int XpGiven { get; set; }
 
         public int GoldGiven { get; set; }

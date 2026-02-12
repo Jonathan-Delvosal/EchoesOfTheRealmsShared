@@ -1,6 +1,7 @@
 ﻿using EchoesOfTheRealms;
 using EchoesOfTheRealmsShared.DTO;
 using EchoesOfTheRealmsShared.Entities.CharacterFiles;
+using EchoesOfTheRealmsShared.Entities.EquipmentFiles;
 using EchoesOfTheRealmsShared.Entities.UserFiles;
 using EchoesOfTheRealmsShared.Mappers;
 using Microsoft.EntityFrameworkCore;
@@ -79,21 +80,13 @@ namespace EchoesOfTheRealmsShared.Services
             Character Sheet = 
                 _db.Characters.FirstOrDefault(c => !c.IsDeleted && c.Id == idPc && c.UserId == idUser) ?? throw new Exception("Le personnage n'existe pas");
 
-            Sheet.HP = dto.Hp;
-            Sheet.HPMax = dto.HpMax;
-            Sheet.Mana = dto.Mana;
-            Sheet.ManaMax = dto.ManaMax;
-            Sheet.Str = dto.Str;
-            Sheet.Dex = dto.Dex;
-            Sheet.Intel = dto.Intel;
-            Sheet.Vita = dto.Vita;
-            Sheet.VitaMax = dto.VitaMax;
-            Sheet.ResFire = dto.ResFire;
-            Sheet.ResIce = dto.ResIce;
-            Sheet.ResLightning = dto.ResLightning;
+            Sheet.HP = Math.Max(0, dto.Hp);
+            Sheet.Mana = Math.Max(0, dto.Mana);
+
             Sheet.LvL = dto.Lvl;
             Sheet.XP = dto.Xp;
             Sheet.Gold = dto.Gold;
+
             Sheet.JobId = dto.JobId;
             Sheet.WeaponId = dto.WeaponId;
             Sheet.HelmetId = dto.HelmetId;
@@ -123,10 +116,29 @@ namespace EchoesOfTheRealmsShared.Services
                 ResIce = 10,
                 ResLightning = 10,
                 LvL = 1,
-                UserId = idU
+                UserId = idU,
+                IsDeleted = false
             };
 
+            _db.Characters.Add(Sheet);
             _db.SaveChanges();
+        }
+
+        public PCSheetResolvedDTO? GetPcResolvedByUserId(long idUser, long idPc)
+        {
+            var c = _db.Characters
+                .Include(x => x.Job)
+                .Include(x => x.Helmet).ThenInclude(h => h.Type)
+                .Include(x => x.Helmet).ThenInclude(h => h.MaterialType)
+                .Include(x => x.Armor).ThenInclude(a => a.Type)
+                .Include(x => x.Armor).ThenInclude(a => a.MaterialType)
+                .Include(x => x.Boot).ThenInclude(b => b.Type)
+                .Include(x => x.Boot).ThenInclude(b => b.MaterialType)
+                .Include(x => x.Weapon).ThenInclude(w => w.Type)
+                .Include(x => x.Weapon).ThenInclude(w => w.MaterialType)
+                .FirstOrDefault(x => !x.IsDeleted && x.Id == idPc && x.UserId == idUser);
+
+            return c?.MapResolved();
         }
 
     }

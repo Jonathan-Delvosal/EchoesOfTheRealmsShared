@@ -33,5 +33,11 @@ namespace EchoesOfTheRealmsShared.DTO
 
         public int BonusResLightning { get; set; }
 
+        public int BonusDefense { get; set; }
+
+        public double BonusCritChance { get; set; }
+
+        public double BonusCritMultiplier { get; set; }
+
     }
 }

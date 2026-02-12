@@ -11,27 +11,7 @@ namespace EchoesOfTheRealmsShared.DTO
 
         public int Hp { get; set; }
 
-        public int HpMax { get; set; }
-
         public int Mana { get; set; }
-
-        public int ManaMax { get; set; }
-
-        public int Str { get; set; }
-
-        public int Dex { get; set; }
-
-        public int Intel { get; set; }
-
-        public int Vita { get; set; }
-
-        public int VitaMax { get; set; }
-
-        public int ResFire { get; set; }
-
-        public int ResIce { get; set; }
-
-        public int ResLightning { get; set; }
 
         public int Lvl { get; set; }
 

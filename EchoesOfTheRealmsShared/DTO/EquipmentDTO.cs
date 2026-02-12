@@ -47,5 +47,11 @@ namespace EchoesOfTheRealmsShared.DTO
 
         public int? ModResLightning { get; set; }
 
+        public int? ModDefense { get; set; }
+
+        public double? ModCritChance { get; set; }
+
+        public double? ModCritMultiplier { get; set; }
+
     }
 }
