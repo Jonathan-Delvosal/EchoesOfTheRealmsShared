@@ -7,76 +7,69 @@ namespace EchoesOfTheRealmsShared.Services
 {
     public class AIService(HttpClient client)
     {
-        public async Task<(string?, string?)> SendMessage(string newMessage, string role, string? preprompt = null)
+        public async Task<(string? assistant, string? newPreprompt)> SendMessage(string newMessage,string role, string? preprompt = null)
         {
-            var messages = new List<object>();
-            {
-                if (role == "marchand")
-                {
-                    messages.Add(
-                        new
-                        {
-                            Role = "system",
-                            Content = $"Tu es un marchand dans un monde héroique fantasie qui vit du commercer de la guerre et n'hésite pas à insulter l'utilisateur. Tu vis au moyen-age et si on te parle de chose dont tu n'es pas sencé avoir connaissance. Reponds toujours «...» Contexte: {preprompt}"
-                        });
-                }
-                else if (role == "reine")
-                {
-                    messages.Add(
-                        new
-                        {
-                            Role = "system",
-                            Content = $"Tu es la reine du royaume de Libra et tu exige qu'on te parle avec déférence, dû à ton rang, digne descendante des Déesses. Contexte: {preprompt}"
-                        });
-                }
+            var messages = BuildConversation(role, preprompt, newMessage);
 
-                messages = messages
-                    .Append(new { Role = "user", Content = newMessage })
-                    .ToList();
+            var main = await CallChatAsync(messages);
+            if (main?.Choices is null || main.Choices.Count == 0)
+                throw new HttpRequestException();
 
-                var response = await client.PostAsJsonAsync("https://api.openai.com/v1/chat/completions", new
-                {
-                    Model = "gpt-4o",
-                    Messages = messages
-                }
-                );
+            var assistantContent = main.Choices[0].Message.Content;
 
-                string content = await response.Content.ReadAsStringAsync();
-                // déserialiser en object c#
-                CompletionResponse? data = JsonSerializer.Deserialize<CompletionResponse>(content);
-                if (data != null)
-                {
-                    string assistantContent = data.Choices.First().Message.Content;
-                    messages = messages.Append(new
-                    {
-                        Role = "assistant",
-                        Content = assistantContent
-                    }).ToList();
+            messages.Add(new ChatMessage("assistant", assistantContent));
 
-                    // partie pour recupérer un preprompt
-                    object[] messagesPourResumeur = [
-                        new
-                        {
-                            Role = "system",
-                            Content = "Ton role est de résumer une conversation pour créer un nouveau preprompt system qui contextualisera une conversasion entre une user et un assistant"
-                        },
-                        ..messages[1..]
-                    ];
-                    var prepromptResponse = await client.PostAsJsonAsync("https://api.openai.com/v1/chat/completions", new
-                        {
-                            Model = "gpt-4o",
-                            Messages = messagesPourResumeur
-                        }
-                    );
+            var summaryMessages = BuildPrepromptSummarizer(messages.Skip(1));
+            var summary = await CallChatAsync(summaryMessages);
 
-                    CompletionResponse? data2 = JsonSerializer.Deserialize<CompletionResponse>(await prepromptResponse.Content.ReadAsStringAsync());
-                    if (data2 != null)
-                    {
-                        return (assistantContent, data2.Choices.First().Message.Content);
-                    }
-                }
-                return (null, null);
-            }
+            var newSystemPreprompt = summary?.Choices?.FirstOrDefault()?.Message.Content;
+            return (assistantContent, newSystemPreprompt);
         }
+
+        private List<ChatMessage> BuildConversation(string role, string? preprompt, string userMessage)
+        {
+            var system = role switch
+            {
+                "marchand" => $"Tu es un marchand dans un monde héroïque fantasy qui vit du commerce de la guerre et n'hésite pas à insulter l'utilisateur. Tu vis au moyen-âge et si on te parle de chose dont tu n'es pas censé avoir connaissance, réponds toujours «...». Contexte: {preprompt}",
+                "reine" => $"Tu es la reine du royaume de Libra et tu exiges qu'on te parle avec déférence, dû à ton rang, digne descendante des Déesses. Contexte: {preprompt}",
+                _ => $"Contexte: {preprompt}"
+            };
+
+            return new List<ChatMessage>
+            {
+                new("system", system),
+                new("user", userMessage)
+            };
+        }
+
+        private List<ChatMessage> BuildPrepromptSummarizer(IEnumerable<ChatMessage> conversationWithoutInitialSystem)
+        {
+            var messages = new List<ChatMessage>
+            {
+                new("system", "Ton rôle est de résumer une conversation pour créer un nouveau preprompt system qui contextualisera une conversation entre un user et un assistant.")
+            };
+
+            messages.AddRange(conversationWithoutInitialSystem);
+            return messages;
+        }
+
+        private async Task<CompletionResponse?> CallChatAsync(List<ChatMessage> messages)
+        {
+            using var response = await client.PostAsJsonAsync(
+                "https://api.openai.com/v1/chat/completions",
+                new
+                {
+                    model = "gpt-4o-mini",
+                    messages = messages.Select(m => new { role = m.Role, content = m.Content })
+                });
+
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<CompletionResponse>(json);
+        }
+
+        public sealed record ChatMessage(string Role, string Content);
     }
 }

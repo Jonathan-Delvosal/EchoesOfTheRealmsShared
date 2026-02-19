@@ -748,6 +748,8 @@ namespace EchoesOfTheRealms
                     CustomerId = 1}
             ]);
 
+            modelBuilder.Entity<Character>().HasIndex("JobId").IsUnique(false);
+
             //modelBuilder.Entity<Quest>().HasData([
             //    new Quest
             //        {
