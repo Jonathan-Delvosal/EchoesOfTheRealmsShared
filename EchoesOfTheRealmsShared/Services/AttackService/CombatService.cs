@@ -2,6 +2,7 @@
 using EchoesOfTheRealmsShared.DTO.Attack;
 using EchoesOfTheRealmsShared.Entities.AttackFiles;
 using EchoesOfTheRealmsShared.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
